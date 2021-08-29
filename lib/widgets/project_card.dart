@@ -170,7 +170,7 @@ class _ProjectCardState extends State<ProjectCard> {
                 child: widget.backImage != null
                     ? Image.asset(
                         widget.backImage!,
-                        filterQuality: FilterQuality.medium,
+                        filterQuality: FilterQuality.low,
                         fit: BoxFit.contain,
                       )
                     : Container(),
