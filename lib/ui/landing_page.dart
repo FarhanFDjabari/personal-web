@@ -41,9 +41,9 @@ class _LandingPageState extends State<LandingPage> {
       i == 0
           ? 0.0
           : i == 1
-              ? MediaQuery.of(context).size.height * 1.05
+              ? MediaQuery.of(context).size.height * 0.95
               : i == 2
-                  ? MediaQuery.of(context).size.height * 1.98
+                  ? MediaQuery.of(context).size.height * 1.80
                   : MediaQuery.of(context).size.height * 2.9,
       duration: Duration(seconds: 1),
       curve: Curves.easeInOut,

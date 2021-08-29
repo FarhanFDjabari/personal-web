@@ -166,7 +166,7 @@ class _ProjectCardState extends State<ProjectCard> {
               duration: Duration(milliseconds: 400),
               opacity: isHover ? 0.0 : 1.0,
               child: FittedBox(
-                fit: BoxFit.fill,
+                fit: BoxFit.cover,
                 child: widget.backImage != null
                     ? Image.asset(
                         widget.backImage!,
