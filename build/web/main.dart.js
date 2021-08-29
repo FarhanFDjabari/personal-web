@@ -8952,16 +8952,16 @@ _.e=e},
 ML:function ML(){},
 aiJ:function(a,b,c){var s,r,q,p,o,n,m=b.b
 if(m<=0||b.a<=0||c.b<=0||c.a<=0)return C.oW
-switch(a){case C.iH:s=c
+switch(a){case C.mr:s=c
 r=b
 break
-case C.iI:q=c.a
+case C.iH:q=c.a
 p=c.b
 o=b.a
 s=q/p>o/m?new P.P(o*p/m,p):new P.P(q,m*q/o)
 r=b
 break
-case C.mr:q=c.a
+case C.iI:q=c.a
 p=c.b
 o=b.a
 r=q/p>o/m?new P.P(o,o*p/q):new P.P(m*q/p,m)
@@ -59972,10 +59972,10 @@ ax:function(){return new X.xA(F.FC(),H.a(["HOME","ABOUT","PROJECTS","CONTACT"],t
 X.xA.prototype={
 wX:function(a){var s,r
 if(a===0)s=0
-else if(a===1)s=this.c.G(t.w).f.a.b*1.05
+else if(a===1)s=this.c.G(t.w).f.a.b*0.95
 else{s=t.w
 r=this.c
-s=a===2?r.G(s).f.a.b*1.98:r.G(s).f.a.b*2.9}this.f.fw(s,C.dP,P.az(0,0,1))},
+s=a===2?r.G(s).f.a.b*1.8:r.G(s).f.a.b*2.9}this.f.fw(s,C.dP,P.az(0,0,1))},
 N2:function(a){var s=null
 if(a===0)return new Y.tF(s)
 else if(a===1)return new A.zN(s)
@@ -60494,7 +60494,7 @@ h=T.e3(H.a([p,n,l,o,k,new O.dg(j,i,C.bh,e),m,h],g),C.z,C.h6,C.F)
 m=P.az(0,400,0)
 p=f.d?0:1
 o=f.a.z
-return R.CN(!1,!0,M.aL(e,T.j_(C.b0,H.a([h,new G.r7(T.apy(o!=null?U.o4(o,C.fy,C.iI,e):M.aL(e,e,e,e,e,e,e,e),C.iH),p,C.b1,m,e,e)],g),C.lu),e,new S.cl(new P.E(d),e,new F.bK(C.k,C.k,r,C.k),e,q,e,C.W),c,e,new V.aw(12,8,12,8),s),e,!0,e,e,e,e,e,e,e,new L.a5Z(f),e,new L.a6_(f),e,e,e)}}
+return R.CN(!1,!0,M.aL(e,T.j_(C.b0,H.a([h,new G.r7(T.apy(o!=null?U.o4(o,C.fy,C.iH,e):M.aL(e,e,e,e,e,e,e,e),C.iI),p,C.b1,m,e,e)],g),C.lu),e,new S.cl(new P.E(d),e,new F.bK(C.k,C.k,r,C.k),e,q,e,C.W),c,e,new V.aw(12,8,12,8),s),e,!0,e,e,e,e,e,e,e,new L.a5Z(f),e,new L.a6_(f),e,e,e)}}
 L.a6_.prototype={
 $0:function(){var s=this.a.a.r
 s.toString
@@ -62779,9 +62779,9 @@ C.iG=new S.aB(1/0,1/0,1/0,1/0)
 C.cA=new S.aB(0,1/0,0,1/0)
 C.Fj=new S.aB(88,1/0,36,1/0)
 C.mq=new S.aB(48,1/0,48,1/0)
-C.iH=new U.ig("BoxFit.fill")
-C.iI=new U.ig("BoxFit.contain")
-C.mr=new U.ig("BoxFit.cover")
+C.mr=new U.ig("BoxFit.fill")
+C.iH=new U.ig("BoxFit.contain")
+C.iI=new U.ig("BoxFit.cover")
 C.ms=new U.ig("BoxFit.fitWidth")
 C.mt=new U.ig("BoxFit.fitHeight")
 C.mu=new U.ig("BoxFit.none")
