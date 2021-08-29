@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Farhan Fadhilah Djabari\'s Website',
+      title: 'Farhan Fadhilah Djabari\'s Personal Website',
       theme: personalTheme,
       routes: {
         '/': (context) => LandingPage(),
