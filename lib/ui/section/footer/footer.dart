@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:personal_web/theme/app_theme.dart';
 import 'package:personal_web/widgets/adaptive_text.dart';
 
 class Footer extends StatelessWidget {
@@ -12,7 +11,7 @@ class Footer extends StatelessWidget {
       margin: EdgeInsets.fromLTRB(0, height * 0.05, 0, 0),
       height: height * 0.07,
       width: width,
-      color: kBackgroundColor,
+      color: Color(0xFF012241),
       child: Center(
         child: Row(
           mainAxisSize: MainAxisSize.min,

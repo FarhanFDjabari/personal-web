@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Farhan Fadhilah Djabari\'s Personal Website',
+      scrollBehavior: MaterialScrollBehavior(),
       theme: personalTheme,
       routes: {
         '/': (context) => LandingPage(),

@@ -26,14 +26,13 @@ class PortfolioDesktop extends StatelessWidget {
             child: ListView.separated(
               padding: EdgeInsets.symmetric(vertical: 20.0),
               scrollDirection: Axis.horizontal,
-              physics: ScrollPhysics(),
+              itemCount: kProjectsTitles.length,
               separatorBuilder: (context, index) {
                 return VerticalDivider(
                   color: Colors.transparent,
                   width: width * 0.015,
                 );
               },
-              itemCount: kProjectsTitles.length,
               itemBuilder: (context, index) {
                 return WidgetAnimator(
                   child: ProjectCard(

@@ -65,7 +65,7 @@ class _ProjectCardState extends State<ProjectCard> {
                     width: 3.0,
                   )
                 : BorderSide(
-                    color: Colors.grey[900]!.withOpacity(0.75),
+                    color: Color(0xFF012C56).withOpacity(0.75),
                   ),
           ),
           boxShadow: isHover
@@ -78,7 +78,7 @@ class _ProjectCardState extends State<ProjectCard> {
                 ]
               : [
                   BoxShadow(
-                    color: Colors.black.withAlpha(100),
+                    color: Color(0xFF012C56).withAlpha(100),
                     blurRadius: 12.0,
                     offset: Offset(0.0, 0.0),
                   )
@@ -164,13 +164,14 @@ class _ProjectCardState extends State<ProjectCard> {
             ),
             AnimatedOpacity(
               duration: Duration(milliseconds: 400),
-              opacity: isHover ? 0.0 : 1.0,
+              opacity: isHover ? 0.015 : 1.0,
               child: FittedBox(
                 fit: BoxFit.cover,
                 child: widget.backImage != null
                     ? Image.asset(
                         widget.backImage!,
-                        filterQuality: FilterQuality.low,
+                        filterQuality: FilterQuality.medium,
+                        scale: 2,
                         fit: BoxFit.contain,
                       )
                     : Container(),
