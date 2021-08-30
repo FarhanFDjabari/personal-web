@@ -26,7 +26,7 @@ class PortfolioDesktop extends StatelessWidget {
             child: ListView.separated(
               padding: EdgeInsets.symmetric(vertical: 20.0),
               scrollDirection: Axis.horizontal,
-              physics: AlwaysScrollableScrollPhysics(),
+              physics: ScrollPhysics(),
               separatorBuilder: (context, index) {
                 return VerticalDivider(
                   color: Colors.transparent,

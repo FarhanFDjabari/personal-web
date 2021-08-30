@@ -297,7 +297,7 @@ class SectionsBody extends StatelessWidget {
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
       child: ListView.builder(
-        // physics: !kIsWeb ? ScrollPhysics() : NeverScrollableScrollPhysics(),
+        physics: ScrollPhysics(),
         controller: scrollController,
         itemCount: sectionsLength,
         itemBuilder: (context, index) => sectionWidget!(index),
