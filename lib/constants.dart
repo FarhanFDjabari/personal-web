@@ -21,7 +21,7 @@ final kCommunityLogo = [
 ];
 
 final kCommunityLinks = [
-  "https://www.bcc.filkom.ub.ac.id/",
+  "https://bccfilkom.net/",
 ];
 
 final kTools = [
