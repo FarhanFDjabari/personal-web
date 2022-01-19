@@ -21,7 +21,8 @@ class ContactMobileTab extends StatelessWidget {
                 Padding(
               padding: const EdgeInsets.symmetric(vertical: 10.0),
               child: ProjectCard(
-                cardWidth: width > 480 ? width * 0.5 : width * 0.8,
+                cardWidth: width * 0.6,
+                cardHeight: width * 0.65,
                 projectIconData: kContactIcons[i],
                 projectTitle: kContactTitles[i],
                 projectDescription: kContactDetails[i],
@@ -30,6 +31,7 @@ class ContactMobileTab extends StatelessWidget {
             options: CarouselOptions(
                 height: height * 0.3,
                 autoPlay: true,
+                pageSnapping: true,
                 autoPlayInterval: Duration(seconds: 5),
                 enlargeCenterPage: true,
                 autoPlayCurve: Curves.fastOutSlowIn,

@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:personal_web/theme/app_theme.dart';
 import 'package:personal_web/ui/landing_page.dart';
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Farhan Fadhilah Djabari\'s Personal Website',
-      scrollBehavior: MaterialScrollBehavior(),
+      scrollBehavior: CustomScrollBehavior(),
       theme: personalTheme,
       routes: {
         '/': (context) => LandingPage(),
@@ -22,4 +23,12 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
     );
   }
+}
+
+class CustomScrollBehavior extends MaterialScrollBehavior {
+  @override
+  Set<PointerDeviceKind> get dragDevices => {
+        PointerDeviceKind.touch,
+        PointerDeviceKind.mouse,
+      };
 }

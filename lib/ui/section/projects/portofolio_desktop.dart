@@ -3,7 +3,6 @@ import 'package:personal_web/widgets/animator.dart';
 import 'package:personal_web/widgets/custom_button.dart';
 import 'package:personal_web/widgets/custom_heading.dart';
 import 'package:personal_web/widgets/project_card.dart';
-import 'package:universal_html/html.dart' as html;
 
 import '../../../constants.dart';
 
@@ -22,7 +21,7 @@ class PortfolioDesktop extends StatelessWidget {
           CustomSectionSubHeading(
               text: "Here are few samples of my previous work\n\n"),
           SizedBox(
-            height: width > 1200 ? height * 0.45 : width * 0.21,
+            height: width > 1200 ? height * 0.45 : height * 0.35,
             child: ListView.separated(
               padding: EdgeInsets.symmetric(vertical: 20.0),
               scrollDirection: Axis.horizontal,
@@ -54,9 +53,7 @@ class PortfolioDesktop extends StatelessWidget {
           OutlinedCustomBtn(
             btnText: "See More",
             onPressed: () {
-              html.window.open(
-                  "https://github.com/FarhanFDjabari?tab=repositories",
-                  "github repo");
+              launchURL("https://github.com/FarhanFDjabari?tab=repositories");
             },
           ),
         ],

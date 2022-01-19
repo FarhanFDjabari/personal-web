@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:personal_web/theme/app_theme.dart';
 import 'package:personal_web/ui/section/about/about.dart';
 import 'package:personal_web/ui/section/contact/contact.dart';
 import 'package:personal_web/ui/section/footer/footer.dart';
 import 'package:personal_web/ui/section/home/home.dart';
 import 'package:personal_web/ui/section/projects/portofolio.dart';
-import 'package:personal_web/widgets/arrow_on_top.dart';
 import 'package:personal_web/widgets/entrance_fader.dart';
 import 'package:personal_web/widgets/navbar_logo.dart';
-import 'package:universal_html/html.dart' as html;
 
 import '../constants.dart';
 
@@ -114,25 +111,28 @@ class _LandingPageState extends State<LandingPage> {
             )
           : _appBarTabDesktop(),
       drawer: MediaQuery.of(context).size.width < 760 ? _appBarMobile() : null,
-      body: Stack(
-        children: [
-          SectionsBody(
-            scrollController: _scrollController,
-            sectionsLength: _sectionsIcons.length,
-            sectionWidget: sectionWidget,
-          ),
-          _isScrollingDown
-              ? Positioned(
-                  bottom: 90,
-                  right: 0,
-                  child: EntranceFader(
-                      offset: Offset(0, 20),
-                      child: ArrowOnTop(
-                        onPressed: () => _scroll(0),
-                      )))
-              : Container()
-        ],
+      body: SectionsBody(
+        scrollController: _scrollController,
+        sectionsLength: _sectionsIcons.length,
+        sectionWidget: sectionWidget,
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButton: _isScrollingDown
+          ? FloatingActionButton(
+              backgroundColor: kPrimaryColor,
+              child: Icon(
+                Icons.arrow_drop_up_outlined,
+                size: MediaQuery.of(context).size.height * 0.075,
+                color: kBackgroundColor,
+              ),
+              onPressed: () {
+                setState(() {
+                  _isScrollingDown = false;
+                });
+                _scroll(0);
+              },
+            )
+          : null,
     );
   }
 
@@ -147,7 +147,15 @@ class _LandingPageState extends State<LandingPage> {
               height: 60.0,
               child: MaterialButton(
                 hoverColor: kPrimaryColor,
-                onPressed: () => _scroll(index),
+                onPressed: () {
+                  if (index > 0) {
+                    _isScrollingDown = true;
+                  } else {
+                    _isScrollingDown = false;
+                  }
+                  setState(() {});
+                  _scroll(index);
+                },
                 child: Text(
                   childText,
                   style: TextStyle(
@@ -162,18 +170,34 @@ class _LandingPageState extends State<LandingPage> {
             child: MaterialButton(
               hoverColor: kPrimaryColor.withAlpha(70),
               onPressed: () {
+                if (index > 0) {
+                  _isScrollingDown = true;
+                } else {
+                  _isScrollingDown = false;
+                }
                 _scroll(index);
                 Navigator.pop(context);
+                setState(() {});
               },
-              child: ListTile(
-                leading: Icon(
-                  icon,
-                  color: kPrimaryColor,
+              child: Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      icon,
+                      color: kPrimaryColor,
+                    ),
+                    SizedBox(width: 8),
+                    Text(
+                      childText,
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
                 ),
-                title: Text(childText,
-                    style: TextStyle(
-                      color: Colors.white,
-                    )),
               ),
             ),
           );
@@ -216,13 +240,12 @@ class _LandingPageState extends State<LandingPage> {
                   borderRadius: BorderRadius.circular(5.0),
                   side: BorderSide(color: kPrimaryColor)),
               onPressed: () {
-                html.window.open(
-                    'https://drive.google.com/file/d/1p558eaBaZSyfYQyDs5rTHel0k7_tIQVY/view?usp=sharing',
-                    "pdf");
+                launchURL(
+                    'https://drive.google.com/file/d/1p558eaBaZSyfYQyDs5rTHel0k7_tIQVY/view?usp=sharing');
               },
               child: Text(
                 "MY RESUME",
-                style: GoogleFonts.montserrat(
+                style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.w300,
                 ),
@@ -236,44 +259,61 @@ class _LandingPageState extends State<LandingPage> {
   }
 
   Widget _appBarMobile() {
-    return Drawer(
-      child: Material(
-        color: kBackgroundColor,
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(0, 25.0, 0, 0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              for (int i = 0; i < _sectionsName.length; i++)
-                _appBarActions(_sectionsName[i], i, _sectionsIcons[i]),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: MaterialButton(
-                  hoverColor: kPrimaryColor.withAlpha(150),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                      side: BorderSide(color: kPrimaryColor)),
-                  onPressed: () {
-                    launchURL(
-                        "https://drive.google.com/file/d/1p558eaBaZSyfYQyDs5rTHel0k7_tIQVY/view?usp=sharing");
-                  },
-                  child: ListTile(
-                    leading: Icon(
-                      Icons.book,
-                      color: Color(0xFF95E786),
-                    ),
-                    title: Text(
-                      "MY RESUME",
-                      style: GoogleFonts.montserrat(
-                        fontWeight: FontWeight.w300,
-                        color: Colors.white,
+    return Material(
+      color: kBackgroundColor.withOpacity(0.95),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(0, 25.0, 0, 0),
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            for (int i = 0; i < _sectionsName.length; i++)
+              _appBarActions(_sectionsName[i], i, _sectionsIcons[i]),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: MaterialButton(
+                hoverColor: kPrimaryColor.withAlpha(150),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                    side: BorderSide(color: kPrimaryColor)),
+                onPressed: () {
+                  launchURL(
+                      "https://drive.google.com/file/d/1p558eaBaZSyfYQyDs5rTHel0k7_tIQVY/view?usp=sharing");
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.book,
+                        color: Color(0xFF95E786),
                       ),
-                    ),
+                      SizedBox(width: 8),
+                      Text(
+                        "MY RESUME",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w300,
+                          fontFamily: 'Montserrat',
+                          color: Colors.white,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+            SizedBox(height: 30),
+            IconButton(
+              padding: EdgeInsets.zero,
+              splashRadius: 30,
+              icon: Icon(
+                Icons.arrow_back_ios_new_rounded,
+              ),
+              alignment: Alignment.center,
+              onPressed: () => Navigator.pop(context),
+            ),
+          ],
         ),
       ),
     );

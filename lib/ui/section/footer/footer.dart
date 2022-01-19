@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:personal_web/widgets/adaptive_text.dart';
 
 class Footer extends StatelessWidget {
@@ -18,15 +17,17 @@ class Footer extends StatelessWidget {
           children: [
             AdaptiveText(
               "This website is built with",
-              style: GoogleFonts.montserrat(
+              style: TextStyle(
                 fontWeight: FontWeight.w300,
+                fontFamily: 'Montserrat',
                 color: Colors.white,
               ),
             ),
             AdaptiveText(
               "Flutter",
-              style: GoogleFonts.montserrat(
+              style: TextStyle(
                 fontWeight: FontWeight.w500,
+                fontFamily: 'Montserrat',
                 color: Colors.blue,
               ),
             ),

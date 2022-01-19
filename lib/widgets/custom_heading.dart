@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import 'adaptive_text.dart';
 
@@ -12,8 +11,9 @@ class CustomSectionHeading extends StatelessWidget {
   Widget build(BuildContext context) {
     return AdaptiveText(
       text,
-      style: GoogleFonts.montserrat(
+      style: TextStyle(
         fontSize: MediaQuery.of(context).size.height * 0.075,
+        fontFamily: 'Montserrat',
         fontWeight: FontWeight.w100,
         letterSpacing: 1.0,
         color: Colors.white,
@@ -32,8 +32,9 @@ class CustomSectionSubHeading extends StatelessWidget {
   Widget build(BuildContext context) {
     return AdaptiveText(
       text,
-      style: GoogleFonts.montserrat(
+      style: TextStyle(
         fontWeight: FontWeight.w200,
+        fontFamily: 'Montserrat',
         color: Colors.white,
       ),
     );

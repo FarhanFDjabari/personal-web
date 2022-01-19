@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class AboutMeMetaData extends StatelessWidget {
   final String? data;
@@ -19,19 +18,22 @@ class AboutMeMetaData extends StatelessWidget {
           children: [
             TextSpan(
               text: "$data: ",
-              style: GoogleFonts.montserrat(
+              style: TextStyle(
                 fontWeight: FontWeight.w600,
+                fontFamily: 'Montserrat',
                 fontSize: height * 0.018,
                 color: Colors.white,
               ),
             ),
             TextSpan(
               text: " $information\n",
-              style: GoogleFonts.montserrat(
+              style: TextStyle(
                 fontWeight: FontWeight.w300,
+                fontFamily: 'Montserrat',
                 fontSize: height * 0.018,
                 letterSpacing: 1.0,
                 color: Colors.white,
+                overflow: TextOverflow.fade,
               ),
             ),
           ],

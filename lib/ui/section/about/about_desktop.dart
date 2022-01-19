@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:personal_web/theme/app_theme.dart';
 import 'package:personal_web/widgets/about_me_metadata.dart';
 import 'package:personal_web/widgets/adaptive_text.dart';
@@ -30,34 +29,32 @@ class AboutDesktop extends StatelessWidget {
           SizedBox(height: 30.0),
           Row(
             children: [
-              // Expanded(
-              //   child: Image.asset(
-              //     'assets/img/web.png',
-              //     height: height * 0.7,
-              //   ),
-              // ),
-              Container(
-                width: width < 1230 ? width * 0.05 : width * 0.1,
-              ),
               Expanded(
                 flex: width < 1230 ? 2 : 1,
                 child: Container(
-                  padding: EdgeInsets.only(left: 25.0, right: 25.0),
+                  padding: EdgeInsets.only(
+                    left: width * 0.1,
+                    right: width * 0.1,
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       AdaptiveText(
                         "Who am I?",
-                        style: GoogleFonts.montserrat(
-                            color: kPrimaryColor, fontSize: height * 0.025),
+                        style: TextStyle(
+                          color: kPrimaryColor,
+                          fontSize: height * 0.025,
+                          fontFamily: 'Montserrat',
+                        ),
                       ),
                       SizedBox(
                         height: height * 0.03,
                       ),
                       AdaptiveText(
-                        "I'm Farhan Fadhilah Djabari, a Front-end Mobile developer.",
-                        style: GoogleFonts.montserrat(
+                        "I'm Farhan Fadhilah Djabari, a Mobile Developer.",
+                        style: TextStyle(
                           fontSize: height * 0.035,
+                          fontFamily: 'Montserrat',
                           fontWeight: FontWeight.w400,
                           color: Colors.white,
                         ),
@@ -66,9 +63,10 @@ class AboutDesktop extends StatelessWidget {
                         height: height * 0.02,
                       ),
                       AdaptiveText(
-                        "I'm a Final Year Information Technology student who is currently enrolled in Brawijaya University, Malang. I've been developing mobile apps with flutter for about a year. I'm a person who has a very high curiosity and easily adapts to new technologies. I have a goal to become a mobile application developer, therefore I joined as a member of software developer community on my university called Basic Computing Community.",
-                        style: GoogleFonts.montserrat(
+                        "I'm a Final Year Information Technology student who is currently enrolled in Brawijaya University, Malang. I've been developing mobile apps with flutter for about a year. I'm a person who has a very high curiosity and easily adapts to new technologies. I have a goal to become great mobile application developer, therefore I joined as a member of software developer community on my university called Basic Computing Community.",
+                        style: TextStyle(
                           fontSize: height * 0.02,
+                          fontFamily: 'Montserrat',
                           color: Colors.grey[500],
                           height: 2.0,
                         ),
@@ -89,8 +87,11 @@ class AboutDesktop extends StatelessWidget {
                       ),
                       AdaptiveText(
                         "Technologies I have worked with:",
-                        style: GoogleFonts.montserrat(
-                            color: kPrimaryColor, fontSize: height * 0.018),
+                        style: TextStyle(
+                          color: kPrimaryColor,
+                          fontSize: height * 0.018,
+                          fontFamily: 'Montserrat',
+                        ),
                       ),
                       Row(
                         children: [
@@ -118,11 +119,11 @@ class AboutDesktop extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           AboutMeMetaData(
-                            data: "Name",
+                            data: "Full Name",
                             information: "Farhan Fadhilah Djabari",
                           ),
                           AboutMeMetaData(
-                            data: "Email",
+                            data: "Personal Email",
                             information: "ffadhilah8@gmail.com",
                           ),
                         ],
@@ -133,7 +134,7 @@ class AboutDesktop extends StatelessWidget {
                       Row(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.only(right: 8.0),
                             child: OutlinedCustomBtn(
                               onPressed: () {
                                 html.window.open(
@@ -163,9 +164,6 @@ class AboutDesktop extends StatelessWidget {
                     ],
                   ),
                 ),
-              ),
-              Container(
-                width: width < 1230 ? width * 0.05 : width * 0.1,
               ),
             ],
           )

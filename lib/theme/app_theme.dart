@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 
 final personalTheme = ThemeData(
   brightness: Brightness.dark,
-  primarySwatch: Colors.green,
   primaryColorDark: kPrimaryColor,
   primaryColor: kPrimaryColor,
-  accentColor: kPrimaryColor,
   highlightColor: kPrimaryColor,
   canvasColor: Colors.white,
   textTheme: personalTextTheme,
+  colorScheme: ColorScheme.fromSwatch(
+          primarySwatch: Colors.green, brightness: Brightness.dark)
+      .copyWith(
+    secondary: kPrimaryColor,
+  ),
 );
 
 final personalTextTheme = TextTheme();

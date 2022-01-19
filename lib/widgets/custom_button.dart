@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:personal_web/theme/app_theme.dart';
 
 class OutlinedCustomBtn extends StatelessWidget {
@@ -20,8 +19,9 @@ class OutlinedCustomBtn extends StatelessWidget {
       onPressed: onPressed,
       child: Text(
         btnText,
-        style: GoogleFonts.montserrat(
+        style: TextStyle(
           fontWeight: FontWeight.w300,
+          fontFamily: 'Montserrat',
           color: Colors.white,
         ),
       ),

@@ -23,8 +23,10 @@ class PortfolioMobileTab extends StatelessWidget {
                 Padding(
               padding: const EdgeInsets.symmetric(vertical: 15.0),
               child: ProjectCard(
-                cardWidth: width < 650 ? width * 0.8 : width * 0.4,
+                cardWidth: width * 0.8,
+                cardHeight: width * 0.5,
                 projectIcon: kProjectsIcons[i],
+                backImage: kProjectsBanner[i],
                 projectTitle: kProjectsTitles[i],
                 projectDescription: kProjectsDescriptions[i],
                 projectLink: kProjectsLinks[i],
@@ -35,6 +37,7 @@ class PortfolioMobileTab extends StatelessWidget {
                 autoPlay: true,
                 autoPlayInterval: Duration(seconds: 5),
                 enlargeCenterPage: true,
+                pageSnapping: true,
                 autoPlayCurve: Curves.fastOutSlowIn,
                 autoPlayAnimationDuration: Duration(milliseconds: 800),
                 enableInfiniteScroll: false),

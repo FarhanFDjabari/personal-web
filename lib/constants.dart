@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 const kSocialIcons = [
-  "https://img.icons8.com/ios-glyphs/480/ffffff/instagram-new.png",
-  "https://img.icons8.com/metro/308/ffffff/linkedin.png",
-  "https://img.icons8.com/material-rounded/384/ffffff/github.png",
+  "assets/img/instagram-new.png",
+  "assets/img/linkedin.png",
+  "assets/img/github.png",
 ];
 
 const kSocialLinks = [
@@ -24,44 +24,36 @@ final kCommunityLinks = [
   "https://bccfilkom.net/",
 ];
 
-final kTools = [
-  "Flutter",
-  "Dart",
-  "Java",
-  "Kotlin",
-  "HTML",
-  "CSS",
-  "Bootstrap"
-];
+final kTools = ["Flutter", "Dart", "Java", "Kotlin"];
 
 final kProjectsBanner = [
+  "assets/img/projects/kalmB.png",
+  "assets/img/projects/publicoB.png",
   "assets/img/projects/partnerinB.png",
-  "assets/img/projects/restaurantappB.png",
-  "assets/img/projects/covidB.png",
 ];
 
 final kProjectsIcons = [
+  "assets/img/projects/kalm.png",
+  "assets/img/projects/publico.png",
   "assets/img/projects/partnerin.png",
-  "assets/img/projects/restaurantapp.png",
-  "assets/img/projects/covidnewsapp.png",
 ];
 
 final kProjectsTitles = [
+  "Kalm",
+  "Publico",
   "Partnerin",
-  "Restaurant App",
-  "Covid News App",
 ];
 
 final kProjectsDescriptions = [
+  "Mobile-based one stop mental health solution application that focuses on providing psychotherapy services with a cognitive behavioral approach to help improve the quality of users' mental health.",
+  "Educational application to learn about economic development",
   "Partnerin was developed to overcome the problems of prospective entrepreneurs who have a high business desire.",
-  "Restaurant app is an app built with flutter that can display a list of restaurants, also send daily notifications related to restaurant information",
-  "Covid News App is an application built with native android that can display global statistical information about Covid and news related to the topic."
 ];
 
 final kProjectsLinks = [
+  "https://github.com/FarhanFDjabari/kalm-app",
+  "https://github.com/FarhanFDjabari/Publico",
   "https://github.com/FarhanFDjabari/partnerin",
-  "https://github.com/FarhanFDjabari/restaurant-app",
-  "https://github.com/FarhanFDjabari/CovidNewsApp"
 ];
 
 final kContactIcons = [
@@ -79,5 +71,5 @@ final kContactTitles = [
 final kContactDetails = [
   "Balikpapan, Indonesia",
   "(+62) 851 5602902",
-  "ffadhilah8@gmail.com"
+  "djabari.dev@gmail.com"
 ];
