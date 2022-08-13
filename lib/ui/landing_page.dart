@@ -1,6 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+
+import 'package:get/get.dart';
+import 'package:personal_web/inject.dart';
+
 import 'package:personal_web/theme/app_theme.dart';
+import 'package:personal_web/theme/theme_controller.dart';
 import 'package:personal_web/ui/section/about/about.dart';
 import 'package:personal_web/ui/section/contact/contact.dart';
 import 'package:personal_web/ui/section/footer/footer.dart';
@@ -8,8 +14,10 @@ import 'package:personal_web/ui/section/home/home.dart';
 import 'package:personal_web/ui/section/projects/portofolio.dart';
 import 'package:personal_web/widgets/entrance_fader.dart';
 import 'package:personal_web/widgets/navbar_logo.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../constants.dart';
+import '../core/localization/generated/l10n.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({Key? key}) : super(key: key);
@@ -22,8 +30,8 @@ class _LandingPageState extends State<LandingPage> {
   bool isPressed = false;
   bool _isScrollingDown = false;
   ScrollController _scrollController = ScrollController();
-
-  final List<String> _sectionsName = ["HOME", "ABOUT", "PROJECTS", "CONTACT"];
+  final _appLocale = locator<AppLocalizations>();
+  List<String> _sectionsName = [];
 
   final List<IconData> _sectionsIcons = [
     Icons.home,
@@ -94,49 +102,69 @@ class _LandingPageState extends State<LandingPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      backgroundColor: kBackgroundColor,
-      appBar: MediaQuery.of(context).size.width < 760
-          ? AppBar(
-              iconTheme: IconThemeData(color: Colors.white),
-              elevation: 0,
-              backgroundColor: kBackgroundColor.withOpacity(0.8),
-              actions: [
-                NavBarLogo(),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.05,
-                )
-              ],
-            )
-          : _appBarTabDesktop(),
-      drawer: MediaQuery.of(context).size.width < 760 ? _appBarMobile() : null,
-      body: SectionsBody(
-        scrollController: _scrollController,
-        sectionsLength: _sectionsIcons.length,
-        sectionWidget: sectionWidget,
+    _sectionsName = [
+      _appLocale.home,
+      _appLocale.about,
+      _appLocale.projects,
+      _appLocale.contact
+    ];
+    Get.put(ThemeController());
+    return GetX<ThemeController>(
+      builder: (controller) => Scaffold(
+        extendBodyBehindAppBar: true,
+        backgroundColor:
+            controller.isDarkMode.value ? kBackgroundColor : kShadyWhite,
+        appBar: MediaQuery.of(context).size.width < 760
+            ? AppBar(
+                iconTheme: IconThemeData(
+                    color: controller.isDarkMode.isTrue
+                        ? kShadyWhite
+                        : kBackgroundColor),
+                elevation: 0,
+                backgroundColor: controller.isDarkMode.isTrue
+                    ? kBackgroundColor.withOpacity(0.8)
+                    : kShadyWhite.withOpacity(0.8),
+                actions: [
+                  NavBarLogo(),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.05,
+                  )
+                ],
+              )
+            : _appBarTabDesktop(controller),
+        drawer: MediaQuery.of(context).size.width < 760
+            ? _appBarMobile(controller)
+            : null,
+        body: SectionsBody(
+          scrollController: _scrollController,
+          sectionsLength: _sectionsIcons.length,
+          sectionWidget: sectionWidget,
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+        floatingActionButton: _isScrollingDown
+            ? FloatingActionButton(
+                backgroundColor: kPrimaryColor,
+                child: Icon(
+                  Icons.arrow_drop_up_outlined,
+                  size: MediaQuery.of(context).size.height * 0.075,
+                  color: controller.isDarkMode.isTrue
+                      ? kBackgroundColor
+                      : kShadyWhite,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _isScrollingDown = false;
+                  });
+                  _scroll(0);
+                },
+              )
+            : null,
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      floatingActionButton: _isScrollingDown
-          ? FloatingActionButton(
-              backgroundColor: kPrimaryColor,
-              child: Icon(
-                Icons.arrow_drop_up_outlined,
-                size: MediaQuery.of(context).size.height * 0.075,
-                color: kBackgroundColor,
-              ),
-              onPressed: () {
-                setState(() {
-                  _isScrollingDown = false;
-                });
-                _scroll(0);
-              },
-            )
-          : null,
     );
   }
 
-  Widget _appBarActions(String childText, int index, IconData icon) {
+  Widget _appBarActions(
+      String childText, int index, IconData icon, ThemeController controller) {
     return MediaQuery.of(context).size.width > 760
         ? EntranceFader(
             offset: Offset(0, -10),
@@ -159,7 +187,9 @@ class _LandingPageState extends State<LandingPage> {
                 child: Text(
                   childText,
                   style: TextStyle(
-                    color: Colors.white,
+                    color: controller.isDarkMode.isTrue
+                        ? kShadyWhite
+                        : kBackgroundColor,
                   ),
                 ),
               ),
@@ -186,13 +216,17 @@ class _LandingPageState extends State<LandingPage> {
                   children: [
                     Icon(
                       icon,
-                      color: kPrimaryColor,
+                      color: controller.isDarkMode.isTrue
+                          ? kPrimaryColor
+                          : kBackgroundColor,
                     ),
                     SizedBox(width: 8),
                     Text(
                       childText,
                       style: TextStyle(
-                        color: Colors.white,
+                        color: controller.isDarkMode.isTrue
+                            ? kShadyWhite
+                            : kBackgroundColor,
                       ),
                       textAlign: TextAlign.center,
                     ),
@@ -203,10 +237,12 @@ class _LandingPageState extends State<LandingPage> {
           );
   }
 
-  PreferredSizeWidget _appBarTabDesktop() {
+  PreferredSizeWidget _appBarTabDesktop(ThemeController controller) {
     return AppBar(
       elevation: 0.0,
-      backgroundColor: kBackgroundColor.withOpacity(0.9),
+      backgroundColor: controller.isDarkMode.isTrue
+          ? kBackgroundColor.withOpacity(0.9)
+          : kShadyWhite.withOpacity(0.9),
       title: MediaQuery.of(context).size.width < 780
           ? EntranceFader(
               duration: Duration(milliseconds: 250),
@@ -225,32 +261,97 @@ class _LandingPageState extends State<LandingPage> {
             ),
       actions: [
         for (int i = 0; i < _sectionsName.length; i++)
-          _appBarActions(_sectionsName[i], i, _sectionsIcons[i]),
+          _appBarActions(_sectionsName[i], i, _sectionsIcons[i], controller),
         EntranceFader(
           offset: Offset(0, -10),
           delay: Duration(milliseconds: 100),
           duration: Duration(milliseconds: 250),
           child: Container(
             height: 60.0,
-            width: 120.0,
             padding: const EdgeInsets.all(8.0),
             child: MaterialButton(
               hoverColor: kPrimaryColor.withAlpha(150),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5.0),
-                  side: BorderSide(color: kPrimaryColor)),
+                  side: BorderSide(
+                      color: controller.isDarkMode.isTrue
+                          ? kPrimaryColor
+                          : kBackgroundColor)),
               onPressed: () {
-                launchURL(
-                    'https://drive.google.com/file/d/1p558eaBaZSyfYQyDs5rTHel0k7_tIQVY/view?usp=sharing');
+                if (Localizations.localeOf(context)
+                    .countryCode!
+                    .contains('ID')) {
+                  launchUrlString(
+                      "https://drive.google.com/file/d/1OfnKQa6Nk-YmzJYec7g6tzJU3J1wDzAD/view?usp=sharing");
+                } else {
+                  launchURL(
+                      'https://drive.google.com/file/d/1p558eaBaZSyfYQyDs5rTHel0k7_tIQVY/view?usp=sharing');
+                }
               },
               child: Text(
-                "MY RESUME",
+                _appLocale.myResume,
                 style: TextStyle(
-                  color: Colors.white,
+                  color: controller.isDarkMode.isTrue
+                      ? kShadyWhite
+                      : kBackgroundColor,
                   fontWeight: FontWeight.w300,
                 ),
               ),
             ),
+          ),
+        ),
+        EntranceFader(
+          offset: Offset(0, -10),
+          delay: Duration(milliseconds: 100),
+          duration: Duration(milliseconds: 250),
+          child: Container(
+            height: 60.0,
+            width: 80.0,
+            padding: const EdgeInsets.all(8.0),
+            child: MaterialButton(
+              hoverColor: kPrimaryColor.withAlpha(150),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5.0),
+                  side: BorderSide(
+                      color: controller.isDarkMode.isTrue
+                          ? kPrimaryColor
+                          : kBackgroundColor)),
+              onPressed: () {
+                if (Localizations.localeOf(context)
+                    .countryCode!
+                    .contains('ID')) {
+                  Get.updateLocale(Locale('en', 'US'));
+                } else {
+                  Get.updateLocale(Locale('id', 'ID'));
+                }
+              },
+              child: Text(
+                Localizations.localeOf(context).countryCode!.contains('ID')
+                    ? 'ID'
+                    : 'EN',
+                style: TextStyle(
+                  color: controller.isDarkMode.isTrue
+                      ? kShadyWhite
+                      : kBackgroundColor,
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
+            ),
+          ),
+        ),
+        GetX<ThemeController>(
+          builder: (controller) => CupertinoSwitch(
+            value: controller.isDarkMode.value,
+            activeColor: controller.isDarkMode.isTrue
+                ? kSwitchTrackColor
+                : kBackgroundColor,
+            trackColor: controller.isDarkMode.isTrue
+                ? kSwitchTrackColor
+                : kBackgroundColor,
+            onChanged: (_) {
+              controller.toggleDarkMode();
+              setState(() {});
+            },
           ),
         ),
         const SizedBox(width: 15.0),
@@ -258,26 +359,54 @@ class _LandingPageState extends State<LandingPage> {
     );
   }
 
-  Widget _appBarMobile() {
+  Widget _appBarMobile(ThemeController controller) {
     return Material(
-      color: kBackgroundColor.withOpacity(0.95),
+      color: controller.isDarkMode.isTrue
+          ? kBackgroundColor.withOpacity(0.95)
+          : kShadyWhite.withOpacity(0.95),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(0, 25.0, 0, 0),
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
+            GetX<ThemeController>(
+              builder: (controller) => CupertinoSwitch(
+                value: controller.isDarkMode.value,
+                activeColor: controller.isDarkMode.isTrue
+                    ? kSwitchTrackColor
+                    : kBackgroundColor,
+                trackColor: controller.isDarkMode.isTrue
+                    ? kSwitchTrackColor
+                    : kBackgroundColor,
+                onChanged: (_) {
+                  controller.toggleDarkMode();
+                  setState(() {});
+                },
+              ),
+            ),
             for (int i = 0; i < _sectionsName.length; i++)
-              _appBarActions(_sectionsName[i], i, _sectionsIcons[i]),
+              _appBarActions(
+                  _sectionsName[i], i, _sectionsIcons[i], controller),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: MaterialButton(
                 hoverColor: kPrimaryColor.withAlpha(150),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5.0),
-                    side: BorderSide(color: kPrimaryColor)),
+                    side: BorderSide(
+                        color: controller.isDarkMode.isTrue
+                            ? kPrimaryColor
+                            : kBackgroundColor)),
                 onPressed: () {
-                  launchURL(
-                      "https://drive.google.com/file/d/1p558eaBaZSyfYQyDs5rTHel0k7_tIQVY/view?usp=sharing");
+                  if (Localizations.localeOf(context)
+                      .countryCode!
+                      .contains('ID')) {
+                    launchUrlString(
+                        "https://drive.google.com/file/d/1OfnKQa6Nk-YmzJYec7g6tzJU3J1wDzAD/view?usp=sharing");
+                  } else {
+                    launchURL(
+                        'https://drive.google.com/file/d/1p558eaBaZSyfYQyDs5rTHel0k7_tIQVY/view?usp=sharing');
+                  }
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(15.0),
@@ -286,19 +415,60 @@ class _LandingPageState extends State<LandingPage> {
                     children: [
                       Icon(
                         Icons.book,
-                        color: Color(0xFF95E786),
+                        color: controller.isDarkMode.isTrue
+                            ? kPrimaryColor
+                            : kBackgroundColor,
                       ),
                       SizedBox(width: 8),
                       Text(
-                        "MY RESUME",
+                        _appLocale.myResume,
                         style: TextStyle(
                           fontWeight: FontWeight.w300,
                           fontFamily: 'Montserrat',
-                          color: Colors.white,
+                          color: controller.isDarkMode.isTrue
+                              ? kShadyWhite
+                              : kBackgroundColor,
                         ),
                         textAlign: TextAlign.center,
                       ),
                     ],
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 100.0),
+              child: Container(
+                height: 60.0,
+                width: 80.0,
+                child: MaterialButton(
+                  hoverColor: kPrimaryColor.withAlpha(150),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                      side: BorderSide(
+                          color: controller.isDarkMode.isTrue
+                              ? kPrimaryColor
+                              : kBackgroundColor)),
+                  onPressed: () {
+                    if (Localizations.localeOf(context)
+                        .countryCode!
+                        .contains('ID')) {
+                      Get.updateLocale(Locale('en', 'US'));
+                    } else {
+                      Get.updateLocale(Locale('id', 'ID'));
+                    }
+                  },
+                  child: Text(
+                    Localizations.localeOf(context).countryCode!.contains('ID')
+                        ? 'ID'
+                        : 'EN',
+                    style: TextStyle(
+                      color: controller.isDarkMode.isTrue
+                          ? kShadyWhite
+                          : kBackgroundColor,
+                      fontWeight: FontWeight.w300,
+                    ),
                   ),
                 ),
               ),
@@ -309,6 +479,9 @@ class _LandingPageState extends State<LandingPage> {
               splashRadius: 30,
               icon: Icon(
                 Icons.arrow_back_ios_new_rounded,
+                color: controller.isDarkMode.isTrue
+                    ? kShadyWhite
+                    : kBackgroundColor,
               ),
               alignment: Alignment.center,
               onPressed: () => Navigator.pop(context),

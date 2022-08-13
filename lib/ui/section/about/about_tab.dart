@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:personal_web/inject.dart';
 import 'package:personal_web/theme/app_theme.dart';
+import 'package:personal_web/theme/theme_controller.dart';
 import 'package:personal_web/widgets/about_me_metadata.dart';
 import 'package:personal_web/widgets/community_icon.dart';
 import 'package:personal_web/widgets/custom_button.dart';
@@ -8,14 +11,16 @@ import 'package:personal_web/widgets/custom_heading.dart';
 import 'package:personal_web/widgets/tools_tech.dart';
 
 import '../../../constants.dart';
+import '../../../core/localization/generated/l10n.dart';
 
-class AboutTab extends StatelessWidget {
+class AboutTab extends GetView<ThemeController> {
   final _communityLogoHeight = [60.0, 70.0, 30.0];
 
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+    final _appLocale = locator<AppLocalizations>();
 
     return Container(
       padding: EdgeInsets.symmetric(
@@ -23,15 +28,15 @@ class AboutTab extends StatelessWidget {
       ),
       child: Column(
         children: [
-          CustomSectionHeading(text: "\nAbout Me"),
-          CustomSectionSubHeading(text: "Get to know me"),
+          CustomSectionHeading(text: "\n${_appLocale.aboutMeHeading}"),
+          CustomSectionSubHeading(text: _appLocale.aboutMeSubHeading),
           SizedBox(
             height: height * 0.03,
           ),
           Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              "Who am I?",
+              _appLocale.aboutMeContentHeading,
               style: TextStyle(
                 color: kPrimaryColor,
                 fontSize: height * 0.028,
@@ -45,12 +50,14 @@ class AboutTab extends StatelessWidget {
           Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              "I'm Farhan Fadhilah Djabari, a Mobile Developer.",
+              _appLocale.aboutMeContentBody,
               style: TextStyle(
                 fontSize: height * 0.035,
                 fontFamily: 'Montserrat',
                 fontWeight: FontWeight.w400,
-                color: Colors.white,
+                color: controller.isDarkMode.isTrue
+                    ? kShadyWhite
+                    : kBackgroundColor,
               ),
               textAlign: TextAlign.start,
             ),
@@ -59,11 +66,13 @@ class AboutTab extends StatelessWidget {
             height: height * 0.02,
           ),
           Text(
-            "I'm a Final Year Information Technology student who is currently enrolled in Brawijaya University, Malang. I've been developing mobile apps with flutter for about a year. I'm a person who has a very high curiosity and easily adapts to new technologies. I have a goal to become a great mobile application developer, therefore I joined as a member of software developer community on my university called Basic Computing Community.",
+            _appLocale.aboutMeContentBody2,
             style: TextStyle(
               fontSize: height * 0.02,
               fontFamily: 'Montserrat',
-              color: Colors.grey[500],
+              color: controller.isDarkMode.isTrue
+                  ? Colors.grey[500]
+                  : kBackgroundColor,
               height: 2.0,
             ),
           ),
@@ -73,7 +82,11 @@ class AboutTab extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               border: Border(
-                bottom: BorderSide(color: Colors.grey[700]!, width: 2.0),
+                bottom: BorderSide(
+                    color: controller.isDarkMode.isTrue
+                        ? Colors.grey[700]!
+                        : kBackgroundColor,
+                    width: 2.0),
               ),
             ),
           ),
@@ -83,7 +96,7 @@ class AboutTab extends StatelessWidget {
           Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              "Technologies I have worked with:",
+              _appLocale.aboutMeTechStack,
               style: TextStyle(
                 color: kPrimaryColor,
                 fontSize: height * 0.018,
@@ -105,7 +118,11 @@ class AboutTab extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               border: Border(
-                bottom: BorderSide(color: Colors.grey[700]!, width: 2.0),
+                bottom: BorderSide(
+                    color: controller.isDarkMode.isTrue
+                        ? Colors.grey[700]!
+                        : kBackgroundColor,
+                    width: 2.0),
               ),
             ),
           ),
@@ -116,7 +133,7 @@ class AboutTab extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               AboutMeMetaData(
-                data: "Full Name",
+                data: _appLocale.aboutMeFullName,
                 information: "Farhan Fadhilah Djabari",
               ),
               SizedBox(
@@ -126,11 +143,11 @@ class AboutTab extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   AboutMeMetaData(
-                    data: "Personal Email",
+                    data: _appLocale.aboutMePersonalEmail,
                     information: "ffadhilah8@gmail.com",
                   ),
                   AboutMeMetaData(
-                    data: "From",
+                    data: _appLocale.aboutMeFrom,
                     information: "Balikpapan, ID",
                   ),
                 ],
@@ -155,7 +172,11 @@ class AboutTab extends StatelessWidget {
                 width: width * 0.05,
                 decoration: BoxDecoration(
                   border: Border(
-                    bottom: BorderSide(color: Colors.grey[700]!, width: 2.0),
+                    bottom: BorderSide(
+                        color: controller.isDarkMode.isTrue
+                            ? Colors.grey[700]!
+                            : kBackgroundColor,
+                        width: 2.0),
                   ),
                 ),
               ),

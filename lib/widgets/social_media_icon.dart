@@ -8,9 +8,14 @@ class SocialMediaIconBtn extends StatelessWidget {
   final String? socialLink;
   final double? height;
   final double? horizontalPadding;
+  final Color? iconColor;
 
   SocialMediaIconBtn(
-      {this.icon, this.socialLink, this.height, this.horizontalPadding});
+      {this.icon,
+      this.iconColor,
+      this.socialLink,
+      this.height,
+      this.horizontalPadding});
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -18,7 +23,7 @@ class SocialMediaIconBtn extends StatelessWidget {
       child: IconButton(
         icon: Image.asset(
           icon!,
-          color: Colors.white,
+          color: iconColor,
         ),
         iconSize: height!,
         onPressed: () => launchURL(socialLink!),

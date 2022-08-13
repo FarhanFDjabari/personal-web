@@ -1,38 +1,44 @@
 name: personal_web
-description: My personal web for portofolio
+description: My personal web for portfolio
 publish_to: 'none'
-version: 1.5.0+1
+version: 1.6.0+1
 environment:
   sdk: ">=2.15.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.17.0
   cupertino_icons: ^1.0.4
-  url_launcher: ^6.0.18
-  cached_network_image: ^3.2.0
-  responsive_builder: ^0.4.1
+  get_it: ^7.2.0
+  url_launcher: ^6.1.5
+  cached_network_image: ^3.2.1
+  responsive_builder: ^0.4.2
   universal_html: ^2.0.8
-  scrollable_positioned_list: ^0.2.3
-  carousel_slider: ^4.0.0
-  google_fonts: ^2.2.0
-  animated_text_kit: ^4.2.1
-  http: ^0.13.4
-  flutter_bloc: ^8.0.1
-  flutter_html: any
+  scrollable_positioned_list: ^0.3.2
+  carousel_slider: ^4.1.1
+  google_fonts: ^3.0.1
+  animated_text_kit: ^4.2.2
+  http: ^0.13.5
+  flutter_html: ^2.2.1
   url_strategy: ^0.2.0
-  shared_preferences: ^2.0.12
+  shared_preferences: ^2.0.15
+  timeline_tile: ^2.0.0
+  get: ^4.6.5
   flip_card: ^0.6.0
   mailto: ^2.0.0
 
 
 
 dev_dependencies:
-  flutter_lints: ^1.0.4
+  flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
 
 flutter:
+  generate: true
   uses-material-design: true
   assets:
     - assets/
@@ -91,3 +97,10 @@ flutter:
         - asset: assets/fonts/Montserrat-BlackItalic.ttf
           weight: 900
           style: italic
+
+flutter_intl:                                
+  enabled: true                              
+  class_name: AppLocalizations                           
+  main_locale: en                            
+  arb_dir: lib/core/localization/app_locale        
+  output_dir: lib/core/localization/generated

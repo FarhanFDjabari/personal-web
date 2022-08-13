@@ -1,0 +1,30 @@
+{
+    "home": "BERANDA",
+    "about": "TENTANG", 
+    "projects": "PROJEK", 
+    "contact": "KONTAK",
+    "myResume": "RESUME SAYA",
+
+    "homeGreetings": "SELAMAT DATANG!",
+
+    "aboutMeHeading": "Tentang Saya",
+    "aboutMeSubHeading": "Lebih detail mengenai saya",
+    "aboutMeContentHeading": "Siapa Saya?",
+    "aboutMeContentBody": "Saya Farhan Fadhilah Djabari, seorang Mobile Developer.",
+    "aboutMeContentBody2": "Mahasiswa tingkat akhir yang saat ini sedang berkuliah di Universitas Brawijaya program studi Teknologi Informasi. Saya telah mengembangkan aplikasi mobile menggunakan Flutter selama kurang lebih satu tahun. Saya merupakan seorang yang selalu memiliki rasa ingin tahu dan sangat mudah beradaptasi terhadap perubahan. Tujuan saya adalah untuk menjadi pengembang aplikasi untuk semua platform mobile, dan untuk mencapai hal tersebut saya bergabung kedalam komunitas di kampus yang bernama Basic Computing Community sebagai anggota Frontend Developer.",
+    "aboutMeTechStack": "Dalam membuat aplikasi, teknologi yang saya gunakan antara lain:",
+    "aboutMeFullName": "Nama Lengkap",
+    "aboutMePersonalEmail": "Email Pribadi",
+    "aboutMeFrom": "Asal",
+
+    "portfolioSubHeading": "Berikut ini beberapa proyek yang telah saya kerjakan",
+    "portfolioSeeMore": "Lihat Lebih",
+
+    "contactHeading": "Kontak Saya",
+    "contactSubHeading": "Let's build something together",
+    "contactTitleLocation": "Lokasi",
+    "contactTitlePhone": "Telepon",
+    "contactTitleEmail": "Email",
+
+    "footerBody": "Website ini dibuat menggunakan"
+}

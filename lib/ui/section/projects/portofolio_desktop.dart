@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:personal_web/core/localization/generated/l10n.dart';
+import 'package:personal_web/inject.dart';
 import 'package:personal_web/widgets/animator.dart';
 import 'package:personal_web/widgets/custom_button.dart';
 import 'package:personal_web/widgets/custom_heading.dart';
@@ -7,6 +9,8 @@ import 'package:personal_web/widgets/project_card.dart';
 import '../../../constants.dart';
 
 class PortfolioDesktop extends StatelessWidget {
+  final _appLocale = locator<AppLocalizations>();
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -19,7 +23,7 @@ class PortfolioDesktop extends StatelessWidget {
         children: [
           CustomSectionHeading(text: "\nPortfolio"),
           CustomSectionSubHeading(
-              text: "Here are few samples of my previous work\n\n"),
+              text: "${_appLocale.portfolioSubHeading}\n\n"),
           SizedBox(
             height: width > 1200 ? height * 0.45 : height * 0.35,
             child: ListView.separated(
@@ -51,7 +55,7 @@ class PortfolioDesktop extends StatelessWidget {
             height: height * 0.02,
           ),
           OutlinedCustomBtn(
-            btnText: "See More",
+            btnText: _appLocale.portfolioSeeMore,
             onPressed: () {
               launchURL("https://github.com/FarhanFDjabari?tab=repositories");
             },

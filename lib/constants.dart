@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:personal_web/core/localization/generated/l10n.dart';
+import 'package:personal_web/inject.dart';
+import 'package:url_launcher/url_launcher_string.dart';
+
+final _appLocale = locator<AppLocalizations>();
 
 const kSocialIcons = [
   "assets/img/instagram-new.png",
@@ -13,8 +17,9 @@ const kSocialLinks = [
   "https://github.com/FarhanFDjabari"
 ];
 
-void launchURL(String _url) async =>
-    await canLaunch(_url) ? await launch(_url) : throw 'Could not launch $_url';
+void launchURL(String _url) async => await canLaunchUrlString(_url)
+    ? await launchUrlString(_url)
+    : throw 'Could not launch $_url';
 
 final kCommunityLogo = [
   'assets/img/bcc.png',
@@ -63,9 +68,9 @@ final kContactIcons = [
 ];
 
 final kContactTitles = [
-  "Location",
-  "Phone",
-  "Email",
+  _appLocale.contactTitleLocation,
+  _appLocale.contactTitlePhone,
+  _appLocale.contactTitleEmail,
 ];
 
 final kContactDetails = [

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:personal_web/inject.dart';
 import 'package:personal_web/theme/app_theme.dart';
+import 'package:personal_web/theme/theme_controller.dart';
 import 'package:personal_web/widgets/about_me_metadata.dart';
 import 'package:personal_web/widgets/community_icon.dart';
 import 'package:personal_web/widgets/custom_button.dart';
@@ -7,9 +10,11 @@ import 'package:personal_web/widgets/custom_heading.dart';
 import 'package:personal_web/widgets/tools_tech.dart';
 
 import '../../../constants.dart';
+import '../../../core/localization/generated/l10n.dart';
 
-class AboutMobile extends StatelessWidget {
+class AboutMobile extends GetView<ThemeController> {
   final _communityLogoHeight = [40.0];
+  final _appLocale = locator<AppLocalizations>();
 
   @override
   Widget build(BuildContext context) {
@@ -22,15 +27,15 @@ class AboutMobile extends StatelessWidget {
       ),
       child: Column(
         children: [
-          CustomSectionHeading(text: "\nAbout Me"),
-          CustomSectionSubHeading(text: "Get to know me"),
+          CustomSectionHeading(text: "\n${_appLocale.aboutMeHeading}"),
+          CustomSectionSubHeading(text: _appLocale.aboutMeSubHeading),
           SizedBox(
             height: height * 0.03,
           ),
           Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              "Who am I?",
+              _appLocale.aboutMeContentHeading,
               style: TextStyle(
                 color: kPrimaryColor,
                 fontFamily: 'Montserrat',
@@ -44,12 +49,14 @@ class AboutMobile extends StatelessWidget {
           Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              "I'm Farhan Fadhilah Djabari, a Mobile Developer.",
+              _appLocale.aboutMeContentBody,
               style: TextStyle(
                 fontSize: height * 0.022,
                 fontFamily: 'Montserrat',
                 fontWeight: FontWeight.w400,
-                color: Colors.white,
+                color: controller.isDarkMode.isTrue
+                    ? kShadyWhite
+                    : kBackgroundColor,
               ),
             ),
           ),
@@ -57,11 +64,13 @@ class AboutMobile extends StatelessWidget {
             height: height * 0.02,
           ),
           Text(
-            "I'm a Final Year Information Technology student who is currently enrolled in Brawijaya University, Malang. I've been developing mobile apps with flutter for about a year. I'm a person who has a very high curiosity and easily adapts to new technologies. I have a goal to become a great mobile application developer, therefore I joined as a member of software developer community on my university called Basic Computing Community.",
+            _appLocale.aboutMeContentBody2,
             style: TextStyle(
               fontSize: height * 0.018,
               fontFamily: 'Montserrat',
-              color: Colors.grey[500],
+              color: controller.isDarkMode.isTrue
+                  ? Colors.grey[500]
+                  : kBackgroundColor,
               height: 1.5,
             ),
           ),
@@ -81,7 +90,7 @@ class AboutMobile extends StatelessWidget {
           Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              "Technologies I have worked with:",
+              _appLocale.aboutMeTechStack,
               style: TextStyle(
                 color: kPrimaryColor,
                 fontSize: height * 0.015,
@@ -103,7 +112,11 @@ class AboutMobile extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               border: Border(
-                bottom: BorderSide(color: Colors.grey[700]!, width: 1.0),
+                bottom: BorderSide(
+                    color: controller.isDarkMode.isTrue
+                        ? Colors.grey[700]!
+                        : kBackgroundColor,
+                    width: 1.0),
               ),
             ),
           ),
@@ -111,12 +124,12 @@ class AboutMobile extends StatelessWidget {
             height: height * 0.02,
           ),
           AboutMeMetaData(
-            data: "Full Name",
+            data: _appLocale.aboutMeFullName,
             information: "Farhan Fadhilah Djabari",
             alignment: Alignment.centerLeft,
           ),
           AboutMeMetaData(
-            data: "Personal Email",
+            data: _appLocale.aboutMePersonalEmail,
             information: "ffadhilah8@gmail.com",
             alignment: Alignment.centerLeft,
           ),
@@ -137,7 +150,11 @@ class AboutMobile extends StatelessWidget {
                   width: width * 0.2,
                   decoration: BoxDecoration(
                     border: Border(
-                      bottom: BorderSide(color: Colors.grey[700]!, width: 2.0),
+                      bottom: BorderSide(
+                          color: controller.isDarkMode.isTrue
+                              ? Colors.grey[700]!
+                              : kBackgroundColor,
+                          width: 2.0),
                     ),
                   ),
                 ),

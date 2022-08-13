@@ -1,14 +1,20 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:personal_web/inject.dart';
 import 'package:personal_web/theme/app_theme.dart';
+import 'package:personal_web/theme/theme_controller.dart';
 import 'package:personal_web/widgets/adaptive_text.dart';
 import 'package:personal_web/widgets/animator.dart';
 import 'package:personal_web/widgets/entrance_fader.dart';
 import 'package:personal_web/widgets/social_media_icon.dart';
 
 import '../../../constants.dart';
+import '../../../core/localization/generated/l10n.dart';
 
-class HomeDesktop extends StatelessWidget {
+class HomeDesktop extends GetView<ThemeController> {
+  final _appLocale = locator<AppLocalizations>();
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -27,12 +33,14 @@ class HomeDesktop extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 AdaptiveText(
-                  "WELCOME TO MY WEBSITE! ",
+                  "${_appLocale.homeGreetings} ",
                   style: TextStyle(
                     fontFamily: 'Montserrat',
                     fontSize: height * 0.03,
                     fontWeight: FontWeight.w300,
-                    color: Colors.white,
+                    color: controller.isDarkMode.isTrue
+                        ? kShadyWhite
+                        : kBackgroundColor,
                   ),
                 ),
                 EntranceFader(
@@ -55,14 +63,18 @@ class HomeDesktop extends StatelessWidget {
                   fontFamily: 'Montserrat',
                   fontSize: width < 1200 ? height * 0.085 : height * 0.095,
                   fontWeight: FontWeight.w100,
-                  color: Colors.white,
+                  color: controller.isDarkMode.isTrue
+                      ? kShadyWhite
+                      : kBackgroundColor,
                   letterSpacing: 4.0),
             ),
             AdaptiveText(
               "Djabari",
               style: TextStyle(
                   fontFamily: 'Montserrat',
-                  color: Colors.white,
+                  color: controller.isDarkMode.isTrue
+                      ? kShadyWhite
+                      : kBackgroundColor,
                   fontSize: width < 1200 ? height * 0.085 : height * 0.095,
                   fontWeight: FontWeight.w500,
                   letterSpacing: 5.0),
@@ -88,7 +100,9 @@ class HomeDesktop extends StatelessWidget {
                         textStyle: TextStyle(
                             fontFamily: 'Montserrat',
                             fontSize: height * 0.03,
-                            color: Colors.white,
+                            color: controller.isDarkMode.isTrue
+                                ? kShadyWhite
+                                : kBackgroundColor,
                             fontWeight: FontWeight.w200),
                         speed: Duration(milliseconds: 50),
                       ),
@@ -97,7 +111,9 @@ class HomeDesktop extends StatelessWidget {
                         textStyle: TextStyle(
                             fontFamily: 'Montserrat',
                             fontSize: height * 0.03,
-                            color: Colors.white,
+                            color: controller.isDarkMode.isTrue
+                                ? kShadyWhite
+                                : kBackgroundColor,
                             fontWeight: FontWeight.w200),
                         speed: Duration(milliseconds: 50),
                       ),
@@ -120,6 +136,9 @@ class HomeDesktop extends StatelessWidget {
                     socialLink: kSocialLinks[index],
                     height: height * 0.035,
                     horizontalPadding: width * 0.005,
+                    iconColor: controller.isDarkMode.isTrue
+                        ? kShadyWhite
+                        : kBackgroundColor,
                   ),
                 ),
               ),

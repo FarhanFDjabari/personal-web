@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:personal_web/core/localization/generated/l10n.dart';
+import 'package:personal_web/inject.dart';
+import 'package:personal_web/theme/app_theme.dart';
+import 'package:personal_web/theme/theme_controller.dart';
 import 'package:personal_web/widgets/adaptive_text.dart';
 
-class Footer extends StatelessWidget {
+class Footer extends GetView<ThemeController> {
+  final _appLocale = locator<AppLocalizations>();
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -10,17 +17,19 @@ class Footer extends StatelessWidget {
       margin: EdgeInsets.fromLTRB(0, height * 0.05, 0, 0),
       height: height * 0.07,
       width: width,
-      color: Color(0xFF012241),
+      color: controller.isDarkMode.isTrue ? kBackgroundColor : kShadyWhite,
       child: Center(
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             AdaptiveText(
-              "This website is built with",
+              _appLocale.footerBody,
               style: TextStyle(
                 fontWeight: FontWeight.w300,
                 fontFamily: 'Montserrat',
-                color: Colors.white,
+                color: controller.isDarkMode.isTrue
+                    ? kShadyWhite
+                    : kBackgroundColor,
               ),
             ),
             AdaptiveText(

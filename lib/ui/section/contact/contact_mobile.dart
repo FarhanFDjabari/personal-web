@@ -1,11 +1,15 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:personal_web/core/localization/generated/l10n.dart';
+import 'package:personal_web/inject.dart';
 import 'package:personal_web/widgets/custom_heading.dart';
 import 'package:personal_web/widgets/project_card.dart';
 
 import '../../../constants.dart';
 
 class ContactMobileTab extends StatelessWidget {
+  final _appLocale = locator<AppLocalizations>();
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -13,8 +17,8 @@ class ContactMobileTab extends StatelessWidget {
     return Container(
       child: Column(
         children: [
-          CustomSectionHeading(text: "\nMy Contact"),
-          CustomSectionSubHeading(text: "Let's build something together\n\n"),
+          CustomSectionHeading(text: "\n${_appLocale.contactHeading}"),
+          CustomSectionSubHeading(text: "${_appLocale.contactSubHeading}\n\n"),
           CarouselSlider.builder(
             itemCount: 3,
             itemBuilder: (BuildContext context, int itemIndex, int i) =>

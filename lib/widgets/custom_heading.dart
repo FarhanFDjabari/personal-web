@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/state_manager.dart';
+import 'package:personal_web/theme/theme_controller.dart';
 
+import '../theme/app_theme.dart';
 import 'adaptive_text.dart';
 
-class CustomSectionHeading extends StatelessWidget {
+class CustomSectionHeading extends GetView<ThemeController> {
   final String text;
 
   const CustomSectionHeading({Key? key, required this.text}) : super(key: key);
@@ -16,13 +19,13 @@ class CustomSectionHeading extends StatelessWidget {
         fontFamily: 'Montserrat',
         fontWeight: FontWeight.w100,
         letterSpacing: 1.0,
-        color: Colors.white,
+        color: controller.isDarkMode.isTrue ? kShadyWhite : kBackgroundColor,
       ),
     );
   }
 }
 
-class CustomSectionSubHeading extends StatelessWidget {
+class CustomSectionSubHeading extends GetView<ThemeController> {
   final String text;
 
   const CustomSectionSubHeading({Key? key, required this.text})
@@ -35,7 +38,7 @@ class CustomSectionSubHeading extends StatelessWidget {
       style: TextStyle(
         fontWeight: FontWeight.w200,
         fontFamily: 'Montserrat',
-        color: Colors.white,
+        color: controller.isDarkMode.isTrue ? kShadyWhite : kBackgroundColor,
       ),
     );
   }

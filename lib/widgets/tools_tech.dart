@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:personal_web/theme/app_theme.dart';
+import 'package:personal_web/theme/theme_controller.dart';
 
 import 'adaptive_text.dart';
 
-class ToolTechWidget extends StatelessWidget {
+class ToolTechWidget extends GetView<ThemeController> {
   final String? techName;
 
   const ToolTechWidget({Key? key, this.techName}) : super(key: key);
@@ -21,7 +23,8 @@ class ToolTechWidget extends StatelessWidget {
           AdaptiveText(
             " $techName ",
             style: TextStyle(
-              color: Colors.white,
+              color:
+                  controller.isDarkMode.isTrue ? kShadyWhite : kBackgroundColor,
             ),
           )
         ],

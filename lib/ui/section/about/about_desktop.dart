@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:personal_web/inject.dart';
 import 'package:personal_web/theme/app_theme.dart';
+import 'package:personal_web/theme/theme_controller.dart';
 import 'package:personal_web/widgets/about_me_metadata.dart';
 import 'package:personal_web/widgets/adaptive_text.dart';
 import 'package:personal_web/widgets/community_icon.dart';
@@ -9,9 +12,11 @@ import 'package:personal_web/widgets/tools_tech.dart';
 import 'package:universal_html/html.dart' as html;
 
 import '../../../constants.dart';
+import '../../../core/localization/generated/l10n.dart';
 
-class AboutDesktop extends StatelessWidget {
+class AboutDesktop extends GetView<ThemeController> {
   final _communityLogoHeight = [60.0, 70.0, 30.0];
+  final _appLocale = locator<AppLocalizations>();
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +29,8 @@ class AboutDesktop extends StatelessWidget {
       ),
       child: Column(
         children: [
-          CustomSectionHeading(text: "\nAbout Me"),
-          CustomSectionSubHeading(text: "Get to know me"),
+          CustomSectionHeading(text: "\n${_appLocale.aboutMeHeading}"),
+          CustomSectionSubHeading(text: _appLocale.aboutMeSubHeading),
           SizedBox(height: 30.0),
           Row(
             children: [
@@ -40,7 +45,7 @@ class AboutDesktop extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       AdaptiveText(
-                        "Who am I?",
+                        _appLocale.aboutMeContentHeading,
                         style: TextStyle(
                           color: kPrimaryColor,
                           fontSize: height * 0.025,
@@ -51,23 +56,27 @@ class AboutDesktop extends StatelessWidget {
                         height: height * 0.03,
                       ),
                       AdaptiveText(
-                        "I'm Farhan Fadhilah Djabari, a Mobile Developer.",
+                        _appLocale.aboutMeContentBody,
                         style: TextStyle(
                           fontSize: height * 0.035,
                           fontFamily: 'Montserrat',
                           fontWeight: FontWeight.w400,
-                          color: Colors.white,
+                          color: controller.isDarkMode.isTrue
+                              ? kShadyWhite
+                              : kBackgroundColor,
                         ),
                       ),
                       SizedBox(
                         height: height * 0.02,
                       ),
                       AdaptiveText(
-                        "I'm a Final Year Information Technology student who is currently enrolled in Brawijaya University, Malang. I've been developing mobile apps with flutter for about a year. I'm a person who has a very high curiosity and easily adapts to new technologies. I have a goal to become great mobile application developer, therefore I joined as a member of software developer community on my university called Basic Computing Community.",
+                        _appLocale.aboutMeContentBody2,
                         style: TextStyle(
                           fontSize: height * 0.02,
                           fontFamily: 'Montserrat',
-                          color: Colors.grey[500],
+                          color: controller.isDarkMode.isTrue
+                              ? Colors.grey[500]
+                              : kBackgroundColor,
                           height: 2.0,
                         ),
                       ),
@@ -78,7 +87,10 @@ class AboutDesktop extends StatelessWidget {
                         decoration: BoxDecoration(
                           border: Border(
                             bottom: BorderSide(
-                                color: Colors.grey[700]!, width: 2.0),
+                                color: controller.isDarkMode.isTrue
+                                    ? Colors.grey[700]!
+                                    : kBackgroundColor,
+                                width: 2.0),
                           ),
                         ),
                       ),
@@ -86,7 +98,7 @@ class AboutDesktop extends StatelessWidget {
                         height: height * 0.02,
                       ),
                       AdaptiveText(
-                        "Technologies I have worked with:",
+                        _appLocale.aboutMeTechStack,
                         style: TextStyle(
                           color: kPrimaryColor,
                           fontSize: height * 0.018,
@@ -108,7 +120,10 @@ class AboutDesktop extends StatelessWidget {
                         decoration: BoxDecoration(
                           border: Border(
                             bottom: BorderSide(
-                                color: Colors.grey[700]!, width: 2.0),
+                                color: controller.isDarkMode.isTrue
+                                    ? Colors.grey[700]!
+                                    : kBackgroundColor,
+                                width: 2.0),
                           ),
                         ),
                       ),
@@ -119,11 +134,11 @@ class AboutDesktop extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           AboutMeMetaData(
-                            data: "Full Name",
+                            data: _appLocale.aboutMeFullName,
                             information: "Farhan Fadhilah Djabari",
                           ),
                           AboutMeMetaData(
-                            data: "Personal Email",
+                            data: _appLocale.aboutMePersonalEmail,
                             information: "ffadhilah8@gmail.com",
                           ),
                         ],
@@ -149,7 +164,10 @@ class AboutDesktop extends StatelessWidget {
                             decoration: BoxDecoration(
                               border: Border(
                                 bottom: BorderSide(
-                                    color: Colors.grey[700]!, width: 2.0),
+                                    color: controller.isDarkMode.isTrue
+                                        ? Colors.grey[700]!
+                                        : kBackgroundColor,
+                                    width: 2.0),
                               ),
                             ),
                           ),

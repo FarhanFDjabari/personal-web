@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:personal_web/core/localization/generated/l10n.dart';
+import 'package:personal_web/inject.dart';
 import 'package:personal_web/widgets/animator.dart';
 import 'package:personal_web/widgets/custom_heading.dart';
 import 'package:personal_web/widgets/project_card.dart';
@@ -6,6 +8,8 @@ import 'package:personal_web/widgets/project_card.dart';
 import '../../../constants.dart';
 
 class ContactDesktop extends StatelessWidget {
+  final _appLocale = locator<AppLocalizations>();
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -16,8 +20,8 @@ class ContactDesktop extends StatelessWidget {
           horizontal: width * 0.02, vertical: height * 0.02),
       child: Column(
         children: [
-          CustomSectionHeading(text: "\nMy Contact"),
-          CustomSectionSubHeading(text: "Let's build something together\n\n"),
+          CustomSectionHeading(text: "\n${_appLocale.contactHeading}"),
+          CustomSectionSubHeading(text: "${_appLocale.contactSubHeading}\n\n"),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: List.generate(

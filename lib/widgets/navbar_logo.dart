@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:personal_web/theme/app_theme.dart';
+import 'package:personal_web/theme/theme_controller.dart';
 
-class NavBarLogo extends StatelessWidget {
+class NavBarLogo extends GetView<ThemeController> {
   final double? height;
   NavBarLogo({this.height});
   @override
@@ -18,7 +21,9 @@ class NavBarLogo extends StatelessWidget {
               textStyle: TextStyle(
                 fontFamily: "Agustina",
                 fontSize: height ?? 20,
-                color: Colors.white,
+                color: controller.isDarkMode.isTrue
+                    ? kShadyWhite
+                    : kBackgroundColor,
               ),
             ),
           ),

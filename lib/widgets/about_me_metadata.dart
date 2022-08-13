@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:personal_web/theme/app_theme.dart';
+import 'package:personal_web/theme/theme_controller.dart';
 
-class AboutMeMetaData extends StatelessWidget {
+class AboutMeMetaData extends GetView<ThemeController> {
   final String? data;
   final String? information;
   final Alignment? alignment;
@@ -22,7 +25,9 @@ class AboutMeMetaData extends StatelessWidget {
                 fontWeight: FontWeight.w600,
                 fontFamily: 'Montserrat',
                 fontSize: height * 0.018,
-                color: Colors.white,
+                color: controller.isDarkMode.isTrue
+                    ? kShadyWhite
+                    : kBackgroundColor,
               ),
             ),
             TextSpan(
@@ -32,7 +37,9 @@ class AboutMeMetaData extends StatelessWidget {
                 fontFamily: 'Montserrat',
                 fontSize: height * 0.018,
                 letterSpacing: 1.0,
-                color: Colors.white,
+                color: controller.isDarkMode.isTrue
+                    ? kShadyWhite
+                    : kBackgroundColor,
                 overflow: TextOverflow.fade,
               ),
             ),

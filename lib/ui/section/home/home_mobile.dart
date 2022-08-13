@@ -1,11 +1,17 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:personal_web/inject.dart';
 import 'package:personal_web/theme/app_theme.dart';
+import 'package:personal_web/theme/theme_controller.dart';
 import 'package:personal_web/widgets/social_media_icon.dart';
 
 import '../../../constants.dart';
+import '../../../core/localization/generated/l10n.dart';
 
-class HomeMobile extends StatelessWidget {
+class HomeMobile extends GetView<ThemeController> {
+  final _appLocale = locator<AppLocalizations>();
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -24,11 +30,13 @@ class HomeMobile extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "WELCOME TO MY WEBSITE! ",
+                  "${_appLocale.homeGreetings} ",
                   style: TextStyle(
                       fontSize: height * 0.025,
                       fontFamily: 'Montserrat',
-                      color: Colors.white,
+                      color: controller.isDarkMode.isTrue
+                          ? kShadyWhite
+                          : kBackgroundColor,
                       fontWeight: FontWeight.w200),
                 ),
                 Image.asset(
@@ -45,7 +53,9 @@ class HomeMobile extends StatelessWidget {
               style: TextStyle(
                   fontSize: height * 0.055,
                   fontFamily: 'Montserrat',
-                  color: Colors.white,
+                  color: controller.isDarkMode.isTrue
+                      ? kShadyWhite
+                      : kBackgroundColor,
                   fontWeight: FontWeight.w100,
                   letterSpacing: 1.1),
             ),
@@ -74,7 +84,9 @@ class HomeMobile extends StatelessWidget {
                       textStyle: TextStyle(
                           fontSize: height * 0.03,
                           fontFamily: 'Montserrat',
-                          color: Colors.white,
+                          color: controller.isDarkMode.isTrue
+                              ? kShadyWhite
+                              : kBackgroundColor,
                           fontWeight: FontWeight.w200),
                       speed: Duration(milliseconds: 50),
                     ),
@@ -83,7 +95,9 @@ class HomeMobile extends StatelessWidget {
                       textStyle: TextStyle(
                           fontSize: height * 0.03,
                           fontFamily: 'Montserrat',
-                          color: Colors.white,
+                          color: controller.isDarkMode.isTrue
+                              ? kShadyWhite
+                              : kBackgroundColor,
                           fontWeight: FontWeight.w200),
                       speed: Duration(milliseconds: 50),
                     ),
@@ -104,6 +118,9 @@ class HomeMobile extends StatelessWidget {
                     socialLink: kSocialLinks[i],
                     height: height * 0.03,
                     horizontalPadding: 2.0,
+                    iconColor: controller.isDarkMode.isTrue
+                        ? kShadyWhite
+                        : kBackgroundColor,
                   )
               ],
             ),

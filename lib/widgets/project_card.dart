@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:personal_web/theme/app_theme.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import 'adaptive_text.dart';
 
@@ -39,8 +40,9 @@ class _ProjectCardState extends State<ProjectCard> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return InkWell(
-      onTap: () =>
-          widget.projectLink != null ? launch(widget.projectLink!) : null,
+      onTap: () => widget.projectLink != null
+          ? launchUrlString(widget.projectLink!)
+          : null,
       onHover: (isHovering) {
         if (isHovering) {
           setState(() {

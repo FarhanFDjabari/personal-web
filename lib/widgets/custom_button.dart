@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:personal_web/theme/app_theme.dart';
+import 'package:personal_web/theme/theme_controller.dart';
 
-class OutlinedCustomBtn extends StatelessWidget {
+class OutlinedCustomBtn extends GetView<ThemeController> {
   final String btnText;
   final Function() onPressed;
 
@@ -15,14 +17,17 @@ class OutlinedCustomBtn extends StatelessWidget {
       hoverColor: kPrimaryColor.withAlpha(150),
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5.0),
-          side: BorderSide(color: kPrimaryColor)),
+          side: BorderSide(
+              color: controller.isDarkMode.isTrue
+                  ? kPrimaryColor
+                  : kBackgroundColor)),
       onPressed: onPressed,
       child: Text(
         btnText,
         style: TextStyle(
           fontWeight: FontWeight.w300,
           fontFamily: 'Montserrat',
-          color: Colors.white,
+          color: controller.isDarkMode.isTrue ? kShadyWhite : kBackgroundColor,
         ),
       ),
     );
