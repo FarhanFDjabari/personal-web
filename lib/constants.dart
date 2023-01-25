@@ -32,49 +32,49 @@ final kCommunityLinks = [
 final kTools = ["Flutter", "Dart", "Java", "Kotlin"];
 
 final kProjectsBanner = [
-  "assets/img/projects/kalmB.png",
+  "assets/img/projects/notesgramB.png",
   "assets/img/projects/publicoB.png",
-  "assets/img/projects/partnerinB.png",
+  "assets/img/projects/kalmB.png",
 ];
 
 final kProjectsIcons = [
-  "assets/img/projects/kalm.png",
+  "assets/img/projects/notesgram.png",
   "assets/img/projects/publico.png",
-  "assets/img/projects/partnerin.png",
+  "assets/img/projects/kalm.png",
 ];
 
 final kProjectsTitles = [
-  "Kalm",
+  "Notesgram",
   "Publico",
-  "Partnerin",
+  "Kalm",
 ];
 
 final kProjectsDescriptions = [
-  "Mobile-based one stop mental health solution application that focuses on providing psychotherapy services with a cognitive behavioral approach to help improve the quality of users' mental health.",
+  "Notesgram is a mobile-based application for studygram creators to share their work and earn income from their creations.",
   "Educational application to learn about economic development",
-  "Partnerin was developed to overcome the problems of prospective entrepreneurs who have a high business desire.",
+  "Mobile-based one stop mental health solution application that focuses on providing psychotherapy services with a cognitive behavioral approach to help improve the quality of users' mental health.",
 ];
 
 final kProjectsLinks = [
-  "https://github.com/FarhanFDjabari/kalm-app",
+  "https://github.com/FarhanFDjabari/notesgram",
   "https://github.com/FarhanFDjabari/Publico",
-  "https://github.com/FarhanFDjabari/partnerin",
+  "https://github.com/FarhanFDjabari/kalm-app",
 ];
 
 final kContactIcons = [
   Icons.home,
-  Icons.phone,
+  // Icons.phone,
   Icons.mail,
 ];
 
 final kContactTitles = [
   _appLocale.contactTitleLocation,
-  _appLocale.contactTitlePhone,
+  // _appLocale.contactTitlePhone,
   _appLocale.contactTitleEmail,
 ];
 
 final kContactDetails = [
   "Balikpapan, Indonesia",
-  "(+62) 851 5602902",
+  // "(+62) 851 5602902",
   "djabari.dev@gmail.com"
 ];

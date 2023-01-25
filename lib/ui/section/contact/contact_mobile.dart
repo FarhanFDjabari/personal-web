@@ -1,13 +1,16 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:personal_web/core/localization/generated/l10n.dart';
 import 'package:personal_web/inject.dart';
+import 'package:personal_web/theme/app_theme.dart';
+import 'package:personal_web/theme/theme_controller.dart';
 import 'package:personal_web/widgets/custom_heading.dart';
 import 'package:personal_web/widgets/project_card.dart';
 
 import '../../../constants.dart';
 
-class ContactMobileTab extends StatelessWidget {
+class ContactMobileTab extends GetView<ThemeController> {
   final _appLocale = locator<AppLocalizations>();
 
   @override
@@ -20,7 +23,7 @@ class ContactMobileTab extends StatelessWidget {
           CustomSectionHeading(text: "\n${_appLocale.contactHeading}"),
           CustomSectionSubHeading(text: "${_appLocale.contactSubHeading}\n\n"),
           CarouselSlider.builder(
-            itemCount: 3,
+            itemCount: kContactIcons.length,
             itemBuilder: (BuildContext context, int itemIndex, int i) =>
                 Padding(
               padding: const EdgeInsets.symmetric(vertical: 10.0),
@@ -30,6 +33,12 @@ class ContactMobileTab extends StatelessWidget {
                 projectIconData: kContactIcons[i],
                 projectTitle: kContactTitles[i],
                 projectDescription: kContactDetails[i],
+                backgroundColor: controller.isDarkMode.value
+                    ? kPrimaryColor
+                    : kBackgroundColor,
+                accentColor: controller.isDarkMode.value
+                    ? kPrimaryColor
+                    : kBackgroundColor,
               ),
             ),
             options: CarouselOptions(

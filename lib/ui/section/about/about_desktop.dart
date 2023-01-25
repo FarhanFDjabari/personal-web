@@ -47,7 +47,9 @@ class AboutDesktop extends GetView<ThemeController> {
                       AdaptiveText(
                         _appLocale.aboutMeContentHeading,
                         style: TextStyle(
-                          color: kPrimaryColor,
+                          color: controller.isDarkMode.isTrue
+                              ? kPrimaryColor
+                              : kBackgroundColor,
                           fontSize: height * 0.025,
                           fontFamily: 'Montserrat',
                         ),
@@ -100,7 +102,9 @@ class AboutDesktop extends GetView<ThemeController> {
                       AdaptiveText(
                         _appLocale.aboutMeTechStack,
                         style: TextStyle(
-                          color: kPrimaryColor,
+                          color: controller.isDarkMode.isTrue
+                              ? kPrimaryColor
+                              : kBackgroundColor,
                           fontSize: height * 0.018,
                           fontFamily: 'Montserrat',
                         ),

@@ -3,7 +3,7 @@ description: My personal web for portfolio
 publish_to: 'none'
 version: 1.6.0+1
 environment:
-  sdk: ">=2.15.0 <3.0.0"
+  sdk: ">=2.17.6 <3.0.0"
 
 dependencies:
   flutter:
@@ -29,6 +29,8 @@ dependencies:
   get: ^4.6.5
   flip_card: ^0.6.0
   mailto: ^2.0.0
+  remixicon: ^1.0.0
+  web_smooth_scroll: ^1.1.0
 
 
 

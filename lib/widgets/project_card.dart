@@ -15,6 +15,8 @@ class ProjectCard extends StatefulWidget {
   final double? cardHeight;
   final String? backImage;
   final Widget? bottomWidget;
+  final Color? backgroundColor;
+  final Color? accentColor;
 
   const ProjectCard(
       {Key? key,
@@ -26,7 +28,9 @@ class ProjectCard extends StatefulWidget {
       this.projectLink,
       this.projectIconData,
       this.cardWidth,
-      this.cardHeight})
+      this.cardHeight,
+      this.backgroundColor,
+      this.accentColor})
       : super(key: key);
   @override
   _ProjectCardState createState() => _ProjectCardState();
@@ -34,6 +38,15 @@ class ProjectCard extends StatefulWidget {
 
 class _ProjectCardState extends State<ProjectCard> {
   bool isHover = false;
+  late Color? _backgroundColor;
+  late Color? _accentColor;
+
+  @override
+  void initState() {
+    _backgroundColor = widget.backgroundColor;
+    _accentColor = widget.accentColor;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +72,7 @@ class _ProjectCardState extends State<ProjectCard> {
         height: widget.cardHeight,
         padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
         decoration: BoxDecoration(
-          color: Color(0xFF012C56),
+          color: kBackgroundColor,
           border: Border(
             bottom: isHover
                 ? BorderSide(

@@ -26,7 +26,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "aboutMeContentBody": MessageLookupByLibrary.simpleMessage(
             "Saya Farhan Fadhilah Djabari, seorang Mobile Developer."),
         "aboutMeContentBody2": MessageLookupByLibrary.simpleMessage(
-            "Mahasiswa tingkat akhir yang saat ini sedang berkuliah di Universitas Brawijaya program studi Teknologi Informasi. Saya telah mengembangkan aplikasi mobile menggunakan Flutter selama kurang lebih satu tahun. Saya merupakan seorang yang selalu memiliki rasa ingin tahu dan sangat mudah beradaptasi terhadap perubahan. Tujuan saya adalah untuk menjadi pengembang aplikasi untuk semua platform mobile, dan untuk mencapai hal tersebut saya bergabung kedalam komunitas di kampus yang bernama Basic Computing Community sebagai anggota Frontend Developer."),
+            "Sebagai Mobile Developer, saya memiliki sejumlah pengalaman dalam mengembangkan aplikasi mobile menggunakan teknologi Kotlin dan Flutter. Saya adalah seseorang yang memiliki rasa penasaran yang tinggi terhadap teknologi baru terutama yang terkait dengan pengembangan aplikasi mobile untuk mengembangkan kemampuan dan pengetahuan saya."),
         "aboutMeContentHeading":
             MessageLookupByLibrary.simpleMessage("Siapa Saya?"),
         "aboutMeFrom": MessageLookupByLibrary.simpleMessage("Asal"),

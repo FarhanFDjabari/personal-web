@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:personal_web/core/localization/generated/l10n.dart';
 import 'package:personal_web/inject.dart';
+import 'package:personal_web/theme/app_theme.dart';
+import 'package:personal_web/theme/theme_controller.dart';
 import 'package:personal_web/widgets/animator.dart';
 import 'package:personal_web/widgets/custom_button.dart';
 import 'package:personal_web/widgets/custom_heading.dart';
@@ -8,7 +11,7 @@ import 'package:personal_web/widgets/project_card.dart';
 
 import '../../../constants.dart';
 
-class PortfolioDesktop extends StatelessWidget {
+class PortfolioDesktop extends GetView<ThemeController> {
   final _appLocale = locator<AppLocalizations>();
 
   @override
@@ -27,7 +30,7 @@ class PortfolioDesktop extends StatelessWidget {
           SizedBox(
             height: width > 1200 ? height * 0.45 : height * 0.35,
             child: ListView.separated(
-              padding: EdgeInsets.symmetric(vertical: 20.0),
+              padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
               scrollDirection: Axis.horizontal,
               itemCount: kProjectsTitles.length,
               separatorBuilder: (context, index) {
@@ -46,6 +49,12 @@ class PortfolioDesktop extends StatelessWidget {
                     projectTitle: kProjectsTitles[index],
                     projectDescription: kProjectsDescriptions[index],
                     projectLink: kProjectsLinks[index],
+                    backgroundColor: controller.isDarkMode.value
+                        ? kPrimaryColor
+                        : kBackgroundColor,
+                    accentColor: controller.isDarkMode.value
+                        ? kBackgroundColor
+                        : Colors.white,
                   ),
                 );
               },

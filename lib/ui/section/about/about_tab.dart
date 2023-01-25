@@ -38,7 +38,9 @@ class AboutTab extends GetView<ThemeController> {
             child: Text(
               _appLocale.aboutMeContentHeading,
               style: TextStyle(
-                color: kPrimaryColor,
+                color: controller.isDarkMode.isTrue
+                    ? kPrimaryColor
+                    : kBackgroundColor,
                 fontSize: height * 0.028,
                 fontFamily: 'Montserrat',
               ),
@@ -98,7 +100,9 @@ class AboutTab extends GetView<ThemeController> {
             child: Text(
               _appLocale.aboutMeTechStack,
               style: TextStyle(
-                color: kPrimaryColor,
+                color: controller.isDarkMode.isTrue
+                    ? kPrimaryColor
+                    : kBackgroundColor,
                 fontSize: height * 0.018,
                 fontFamily: 'Montserrat',
               ),

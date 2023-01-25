@@ -78,7 +78,9 @@ class HomeTab extends GetView<ThemeController> {
               children: [
                 Icon(
                   Icons.play_arrow_rounded,
-                  color: kPrimaryColor,
+                  color: controller.isDarkMode.isTrue
+                      ? kPrimaryColor
+                      : kBackgroundColor,
                 ),
                 AnimatedTextKit(
                   isRepeatingAnimation: true,
@@ -92,7 +94,9 @@ class HomeTab extends GetView<ThemeController> {
                           color: controller.isDarkMode.isTrue
                               ? kShadyWhite
                               : kBackgroundColor,
-                          fontWeight: FontWeight.w200),
+                          fontWeight: controller.isDarkMode.isTrue
+                              ? FontWeight.w200
+                              : FontWeight.w300),
                       speed: Duration(milliseconds: 50),
                     ),
                     TyperAnimatedText(
@@ -103,7 +107,9 @@ class HomeTab extends GetView<ThemeController> {
                           color: controller.isDarkMode.isTrue
                               ? kShadyWhite
                               : kBackgroundColor,
-                          fontWeight: FontWeight.w200),
+                          fontWeight: controller.isDarkMode.isTrue
+                              ? FontWeight.w200
+                              : FontWeight.w300),
                       speed: Duration(milliseconds: 50),
                     ),
                   ],

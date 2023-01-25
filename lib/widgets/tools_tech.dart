@@ -17,7 +17,8 @@ class ToolTechWidget extends GetView<ThemeController> {
         children: [
           Icon(
             Icons.play_arrow,
-            color: kPrimaryColor,
+            color:
+                controller.isDarkMode.isTrue ? kPrimaryColor : kBackgroundColor,
             size: MediaQuery.of(context).size.height * 0.02,
           ),
           AdaptiveText(

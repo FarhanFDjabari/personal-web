@@ -62,7 +62,9 @@ class HomeMobile extends GetView<ThemeController> {
             Text(
               "Djabari",
               style: TextStyle(
-                  color: Colors.white,
+                  color: controller.isDarkMode.isTrue
+                      ? kShadyWhite
+                      : kBackgroundColor,
                   fontFamily: 'Montserrat',
                   fontSize: height * 0.055,
                   fontWeight: FontWeight.w500),
@@ -73,7 +75,9 @@ class HomeMobile extends GetView<ThemeController> {
               children: [
                 Icon(
                   Icons.play_arrow_rounded,
-                  color: kPrimaryColor,
+                  color: controller.isDarkMode.isTrue
+                      ? kPrimaryColor
+                      : kBackgroundColor,
                 ),
                 AnimatedTextKit(
                   isRepeatingAnimation: true,
@@ -87,7 +91,9 @@ class HomeMobile extends GetView<ThemeController> {
                           color: controller.isDarkMode.isTrue
                               ? kShadyWhite
                               : kBackgroundColor,
-                          fontWeight: FontWeight.w200),
+                          fontWeight: controller.isDarkMode.isTrue
+                              ? FontWeight.w200
+                              : FontWeight.w300),
                       speed: Duration(milliseconds: 50),
                     ),
                     TyperAnimatedText(
@@ -98,7 +104,9 @@ class HomeMobile extends GetView<ThemeController> {
                           color: controller.isDarkMode.isTrue
                               ? kShadyWhite
                               : kBackgroundColor,
-                          fontWeight: FontWeight.w200),
+                          fontWeight: controller.isDarkMode.isTrue
+                              ? FontWeight.w200
+                              : FontWeight.w300),
                       speed: Duration(milliseconds: 50),
                     ),
                   ],

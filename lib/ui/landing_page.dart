@@ -14,7 +14,9 @@ import 'package:personal_web/ui/section/home/home.dart';
 import 'package:personal_web/ui/section/projects/portofolio.dart';
 import 'package:personal_web/widgets/entrance_fader.dart';
 import 'package:personal_web/widgets/navbar_logo.dart';
+import 'package:remixicon/remixicon.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+import 'package:web_smooth_scroll/web_smooth_scroll.dart';
 
 import '../constants.dart';
 import '../core/localization/generated/l10n.dart';
@@ -29,7 +31,7 @@ class LandingPage extends StatefulWidget {
 class _LandingPageState extends State<LandingPage> {
   bool isPressed = false;
   bool _isScrollingDown = false;
-  ScrollController _scrollController = ScrollController();
+  late ScrollController _scrollController;
   final _appLocale = locator<AppLocalizations>();
   List<String> _sectionsName = [];
 
@@ -73,6 +75,8 @@ class _LandingPageState extends State<LandingPage> {
 
   @override
   void initState() {
+    _scrollController = ScrollController();
+
     _scrollController.addListener(() {
       if (_scrollController.position.userScrollDirection ==
           ScrollDirection.reverse) {
@@ -339,20 +343,44 @@ class _LandingPageState extends State<LandingPage> {
             ),
           ),
         ),
-        GetX<ThemeController>(
-          builder: (controller) => CupertinoSwitch(
-            value: controller.isDarkMode.value,
-            activeColor: controller.isDarkMode.isTrue
-                ? kSwitchTrackColor
-                : kBackgroundColor,
-            trackColor: controller.isDarkMode.isTrue
-                ? kSwitchTrackColor
-                : kBackgroundColor,
-            onChanged: (_) {
-              controller.toggleDarkMode();
-              setState(() {});
-            },
-          ),
+        const SizedBox(width: 15.0),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Obx(() => Icon(
+                  controller.isDarkMode.isTrue
+                      ? Remix.sun_line
+                      : Remix.sun_fill,
+                  color: controller.isDarkMode.isTrue
+                      ? kShadyWhite
+                      : kBackgroundColor,
+                )),
+            const SizedBox(width: 5.0),
+            GetX<ThemeController>(
+              builder: (controller) => CupertinoSwitch(
+                value: controller.isDarkMode.value,
+                activeColor: controller.isDarkMode.isTrue
+                    ? kSwitchTrackColor
+                    : kBackgroundColor,
+                trackColor: controller.isDarkMode.isTrue
+                    ? kSwitchTrackColor
+                    : kBackgroundColor,
+                onChanged: (_) {
+                  controller.toggleDarkMode();
+                  setState(() {});
+                },
+              ),
+            ),
+            const SizedBox(width: 5.0),
+            Obx(() => Icon(
+                  controller.isDarkMode.isTrue
+                      ? Remix.moon_fill
+                      : Remix.moon_line,
+                  color: controller.isDarkMode.isTrue
+                      ? kShadyWhite
+                      : kBackgroundColor,
+                )),
+          ],
         ),
         const SizedBox(width: 15.0),
       ],
@@ -369,20 +397,44 @@ class _LandingPageState extends State<LandingPage> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            GetX<ThemeController>(
-              builder: (controller) => CupertinoSwitch(
-                value: controller.isDarkMode.value,
-                activeColor: controller.isDarkMode.isTrue
-                    ? kSwitchTrackColor
-                    : kBackgroundColor,
-                trackColor: controller.isDarkMode.isTrue
-                    ? kSwitchTrackColor
-                    : kBackgroundColor,
-                onChanged: (_) {
-                  controller.toggleDarkMode();
-                  setState(() {});
-                },
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Obx(() => Icon(
+                      controller.isDarkMode.isTrue
+                          ? Remix.sun_line
+                          : Remix.sun_fill,
+                      color: controller.isDarkMode.isTrue
+                          ? kShadyWhite
+                          : kBackgroundColor,
+                    )),
+                const SizedBox(width: 5.0),
+                GetX<ThemeController>(
+                  builder: (controller) => CupertinoSwitch(
+                    value: controller.isDarkMode.value,
+                    activeColor: controller.isDarkMode.isTrue
+                        ? kSwitchTrackColor
+                        : kBackgroundColor,
+                    trackColor: controller.isDarkMode.isTrue
+                        ? kSwitchTrackColor
+                        : kBackgroundColor,
+                    onChanged: (_) {
+                      controller.toggleDarkMode();
+                      setState(() {});
+                    },
+                  ),
+                ),
+                const SizedBox(width: 5.0),
+                Obx(() => Icon(
+                      controller.isDarkMode.isTrue
+                          ? Remix.moon_fill
+                          : Remix.moon_line,
+                      color: controller.isDarkMode.isTrue
+                          ? kShadyWhite
+                          : kBackgroundColor,
+                    )),
+              ],
             ),
             for (int i = 0; i < _sectionsName.length; i++)
               _appBarActions(
@@ -509,11 +561,14 @@ class SectionsBody extends StatelessWidget {
     return Container(
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
-      child: ListView.builder(
-        physics: ScrollPhysics(),
-        controller: scrollController,
-        itemCount: sectionsLength,
-        itemBuilder: (context, index) => sectionWidget!(index),
+      child: WebSmoothScroll(
+        controller: scrollController ?? ScrollController(),
+        child: ListView.builder(
+          physics: const NeverScrollableScrollPhysics(),
+          controller: scrollController,
+          itemCount: sectionsLength,
+          itemBuilder: (context, index) => sectionWidget!(index),
+        ),
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:personal_web/core/localization/generated/l10n.dart';
@@ -19,26 +20,29 @@ class Footer extends GetView<ThemeController> {
       width: width,
       color: controller.isDarkMode.isTrue ? kBackgroundColor : kShadyWhite,
       child: Center(
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            AdaptiveText(
-              _appLocale.footerBody,
-              style: TextStyle(
-                fontWeight: FontWeight.w300,
-                fontFamily: 'Montserrat',
-                color: controller.isDarkMode.isTrue
-                    ? kShadyWhite
-                    : kBackgroundColor,
-              ),
+        child: AnimatedTextKit(
+          isRepeatingAnimation: true,
+          repeatForever: true,
+          animatedTexts: [
+            FadeAnimatedText(
+              _appLocale.footerBody + " Flutter",
+              textStyle: TextStyle(
+                  fontFamily: 'Montserrat',
+                  color: controller.isDarkMode.isTrue
+                      ? kShadyWhite
+                      : kBackgroundColor,
+                  fontWeight: FontWeight.w300),
+              duration: Duration(milliseconds: 5000),
             ),
-            AdaptiveText(
-              "Flutter",
-              style: TextStyle(
-                fontWeight: FontWeight.w500,
-                fontFamily: 'Montserrat',
-                color: Colors.blue,
-              ),
+            FadeAnimatedText(
+              "FarhanFDjabari © 2023",
+              textStyle: TextStyle(
+                  fontFamily: 'Montserrat',
+                  color: controller.isDarkMode.isTrue
+                      ? kShadyWhite
+                      : kBackgroundColor,
+                  fontWeight: FontWeight.w300),
+              duration: Duration(milliseconds: 5000),
             ),
           ],
         ),

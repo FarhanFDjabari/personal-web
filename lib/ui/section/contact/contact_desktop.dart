@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:personal_web/core/localization/generated/l10n.dart';
 import 'package:personal_web/inject.dart';
+import 'package:personal_web/theme/app_theme.dart';
+import 'package:personal_web/theme/theme_controller.dart';
 import 'package:personal_web/widgets/animator.dart';
 import 'package:personal_web/widgets/custom_heading.dart';
 import 'package:personal_web/widgets/project_card.dart';
 
 import '../../../constants.dart';
 
-class ContactDesktop extends StatelessWidget {
+class ContactDesktop extends GetView<ThemeController> {
   final _appLocale = locator<AppLocalizations>();
 
   @override
@@ -35,6 +38,12 @@ class ContactDesktop extends StatelessWidget {
                     projectIconData: kContactIcons[index],
                     projectTitle: kContactTitles[index],
                     projectDescription: kContactDetails[index],
+                    backgroundColor: controller.isDarkMode.value
+                        ? kPrimaryColor
+                        : kBackgroundColor,
+                    accentColor: controller.isDarkMode.value
+                        ? kPrimaryColor
+                        : kBackgroundColor,
                   ),
                 ),
               ),

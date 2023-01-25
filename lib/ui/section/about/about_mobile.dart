@@ -37,7 +37,9 @@ class AboutMobile extends GetView<ThemeController> {
             child: Text(
               _appLocale.aboutMeContentHeading,
               style: TextStyle(
-                color: kPrimaryColor,
+                color: controller.isDarkMode.isTrue
+                    ? kPrimaryColor
+                    : kBackgroundColor,
                 fontFamily: 'Montserrat',
                 fontSize: height * 0.025,
               ),
@@ -92,7 +94,9 @@ class AboutMobile extends GetView<ThemeController> {
             child: Text(
               _appLocale.aboutMeTechStack,
               style: TextStyle(
-                color: kPrimaryColor,
+                color: controller.isDarkMode.isTrue
+                    ? kPrimaryColor
+                    : kBackgroundColor,
                 fontSize: height * 0.015,
                 fontFamily: 'Montserrat',
               ),

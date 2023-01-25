@@ -36,7 +36,8 @@ class CustomSectionSubHeading extends GetView<ThemeController> {
     return AdaptiveText(
       text,
       style: TextStyle(
-        fontWeight: FontWeight.w200,
+        fontWeight:
+            controller.isDarkMode.isTrue ? FontWeight.w200 : FontWeight.w400,
         fontFamily: 'Montserrat',
         color: controller.isDarkMode.isTrue ? kShadyWhite : kBackgroundColor,
       ),
