@@ -1,3 +1,4 @@
+import 'package:dyn_mouse_scroll/dyn_mouse_scroll.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -16,7 +17,6 @@ import 'package:personal_web/widgets/entrance_fader.dart';
 import 'package:personal_web/widgets/navbar_logo.dart';
 import 'package:remixicon/remixicon.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-import 'package:web_smooth_scroll/web_smooth_scroll.dart';
 
 import '../constants.dart';
 import '../core/localization/generated/l10n.dart';
@@ -147,7 +147,9 @@ class _LandingPageState extends State<LandingPage> {
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         floatingActionButton: _isScrollingDown
             ? FloatingActionButton(
-                backgroundColor: kPrimaryColor,
+                backgroundColor: controller.isDarkMode.value
+                    ? kPrimaryColor
+                    : kBackgroundColor,
                 child: Icon(
                   Icons.arrow_drop_up_outlined,
                   size: MediaQuery.of(context).size.height * 0.075,
@@ -549,26 +551,25 @@ class SectionsBody extends StatelessWidget {
   final ScrollController? scrollController;
   final int? sectionsLength;
   final Widget Function(int)? sectionWidget;
+  final ScrollPhysics? physics;
 
   const SectionsBody({
     Key? key,
     this.scrollController,
     this.sectionsLength,
     this.sectionWidget,
+    this.physics,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
-      child: WebSmoothScroll(
-        controller: scrollController ?? ScrollController(),
-        child: ListView.builder(
-          physics: const NeverScrollableScrollPhysics(),
-          controller: scrollController,
-          itemCount: sectionsLength,
-          itemBuilder: (context, index) => sectionWidget!(index),
-        ),
+      child: ListView.builder(
+        physics: physics,
+        controller: scrollController,
+        itemCount: sectionsLength,
+        itemBuilder: (context, index) => sectionWidget!(index),
       ),
     );
   }

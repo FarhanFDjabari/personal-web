@@ -21,6 +21,7 @@ class ContactMobileTab extends GetView<ThemeController> {
       child: Column(
         children: [
           CustomSectionHeading(text: "\n${_appLocale.contactHeading}"),
+          const SizedBox(height: 5.0),
           CustomSectionSubHeading(text: "${_appLocale.contactSubHeading}\n\n"),
           CarouselSlider.builder(
             itemCount: kContactIcons.length,

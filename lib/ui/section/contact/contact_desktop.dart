@@ -24,6 +24,7 @@ class ContactDesktop extends GetView<ThemeController> {
       child: Column(
         children: [
           CustomSectionHeading(text: "\n${_appLocale.contactHeading}"),
+          const SizedBox(height: 5.0),
           CustomSectionSubHeading(text: "${_appLocale.contactSubHeading}\n\n"),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,

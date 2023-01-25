@@ -113,6 +113,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.4"
+  dyn_mouse_scroll:
+    dependency: "direct main"
+    description:
+      name: dyn_mouse_scroll
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.7"
   fake_async:
     dependency: transitive
     description:
@@ -419,7 +426,7 @@ packages:
       name: provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.0.0"
+    version: "6.0.5"
   quiver:
     dependency: transitive
     description:
@@ -747,13 +754,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.0+1"
-  web_smooth_scroll:
-    dependency: "direct main"
-    description:
-      name: web_smooth_scroll
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.1.0"
   webview_flutter:
     dependency: transitive
     description:
