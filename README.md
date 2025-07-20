@@ -88,33 +88,6 @@ pnpm dev
 - `pnpm start` - Start production server
 - `pnpm lint` - Run ESLint
 
-## 🔧 Configuration
-
-### Environment Variables
-
-Create a `.env.local` file in the root directory:
-
-```env
-# Add any required environment variables here
-# Example:
-# GITHUB_TOKEN=your_github_token
-# MEDIUM_USERNAME=your_medium_username
-```
-
-### Customization
-
-1. **Personal Information**: Update constants in `lib/constants.ts`
-2. **Translations**: Modify `lib/translations.ts` for different languages
-3. **Styling**: Customize themes in `app/globals.css` and Tailwind config
-4. **Components**: Modify components in the `components/` directory
-
-## 🌐 API Routes
-
-- `/api/github/repo` - Fetch GitHub repositories
-- `/api/github/pinned` - Fetch pinned repositories
-- `/api/medium/posts` - Fetch Medium blog posts
-- `/api/medium/content` - Fetch specific blog content
-
 ## 🎨 Theme Customization
 
 The project uses a sophisticated theming system with:
@@ -140,23 +113,9 @@ Built with mobile-first approach:
 - Meta tags and structured data
 - Performance monitoring ready
 
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
 ## 📄 License
 
 This project is open source and available under the [MIT License](LICENSE).
-
-## 📞 Contact
-
-Farhan Fadhilah Djabari - [@farhanfdjabari](https://github.com/farhanfdjabari)
-
-Project Link: [https://github.com/FarhanFDjabari/personal-web](https://github.com/FarhanFDjabari/personal-web)
 
 ---
 
