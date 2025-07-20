@@ -4,6 +4,7 @@ import { Inter } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { LocaleProvider } from "@/components/locale-provider"
+import { Analytics } from "@vercel/analytics/react"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -61,6 +62,22 @@ export default function RootLayout({
         {/* Theme color for mobile browsers */}
         <meta name="theme-color" content="#000000" />
         <meta name="msapplication-TileColor" content="#000000" />
+        
+        {/* Scrollbar visibility script */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              let scrollTimeout;
+              window.addEventListener('scroll', () => {
+                document.documentElement.classList.add('scrolling');
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                  document.documentElement.classList.remove('scrolling');
+                }, 1000);
+              });
+            `,
+          }}
+        />
       </head>
       <body className={inter.className}>
         <ThemeProvider
@@ -72,6 +89,7 @@ export default function RootLayout({
             {children}
           </LocaleProvider>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   )
