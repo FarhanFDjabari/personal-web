@@ -82,7 +82,7 @@ export default function BlogPage() {
                     </div>
                     <div className="flex items-center gap-1">
                       <Clock className="w-4 h-4" />
-                      {post.readTime}
+                      {post.readTime} min read
                     </div>
                   </div>
                   <CardTitle className="text-2xl hover:text-primary transition-colors">

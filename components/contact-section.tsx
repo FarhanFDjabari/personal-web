@@ -2,30 +2,17 @@
 
 import type React from "react"
 import { useState } from "react"
-import { Github, Linkedin, Mail } from "lucide-react"
+import { File, FileText, Github, Linkedin, Mail } from "lucide-react"
 import Link from "next/link"
 import { FadeInSection } from "@/components/fade-in-section"
 import { useTranslation } from "@/hooks/use-translation"
+import { LINKS } from "@/lib/constants"
 
 export function ContactSection() {
   const { t } = useTranslation()
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  })
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    console.log("Form submitted:", formData)
-    setFormData({ name: "", email: "", message: "" })
-  }
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }))
+  const handleDownloadResume = () => {
+    window.open(LINKS.resume, "_blank")
   }
 
   const contactInfo = [
@@ -33,19 +20,19 @@ export function ContactSection() {
       icon: Mail,
       labelKey: "contact.email",
       value: "farhanf@djabari-dev.my.id",
-      href: "mailto:farhanf@djabari-dev.my.id",
+      href: LINKS.email,
     },
     {
       icon: Github,
       labelKey: "contact.github",
-      value: "github.com/farhanfdjabari",
-      href: "https://github.com/farhanfdjabari",
+      value: "FarhanFDjabari",
+      href: LINKS.github,
     },
     {
       icon: Linkedin,
       labelKey: "contact.linkedin",
-      value: "linkedin.com/in/farhanfdjabari",
-      href: "https://linkedin.com/in/farhanfdjabari",
+      value: "Farhan Fadhilah Djabari",
+      href: LINKS.linkedin,
     },
   ]
 
@@ -76,7 +63,6 @@ export function ContactSection() {
             <div className="space-y-8">
               <div>
                 <h3 className="text-2xl font-bold text-foreground mb-6">{t("contact.connect.title")}</h3>
-                <p className="text-muted-foreground leading-relaxed mb-8">{t("contact.connect.description")}</p>
               </div>
 
               <div className="space-y-4">
@@ -99,6 +85,24 @@ export function ContactSection() {
                     </div>
                   </div>
                 ))}
+                <div
+                  key="Download Resume"
+                  className="flex items-center gap-4 p-4 bg-card rounded-lg border border-border hover:border-primary transition-all duration-300 hover:scale-105 group"
+                  style={{ animationDelay: `${contactInfo.length * 100}ms` }}
+                >
+                  <FileText className="w-6 h-6 text-primary group-hover:scale-110 transition-transform duration-300" />
+                  <div>
+                    <p className="text-sm text-muted-foreground">Resume/CV</p>
+                    <Link
+                      onClick={handleDownloadResume}
+                      href={LINKS.resume}
+                      target="undefined"
+                      className="text-foreground hover:text-primary transition-colors duration-300"
+                    >
+                      {t("hero.downloadResume")}
+                    </Link>
+                  </div>
+                </div>
               </div>
             </div>
           </FadeInSection>

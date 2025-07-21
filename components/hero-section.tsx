@@ -3,11 +3,8 @@
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Download, ArrowDown } from "lucide-react"
-import Image from "next/image"
 import { FadeInSection } from "@/components/fade-in-section"
-import { AnimatedCounter } from "@/components/animated-counter"
 import { useTranslation } from "@/hooks/use-translation"
-import { LINKS } from "@/lib/constants"
 
 export function HeroSection() {
   const { t, locale } = useTranslation()
@@ -18,10 +15,6 @@ export function HeroSection() {
     "Dart",
     "Swift/iOS",
   ]
-
-  const handleDownloadResume = () => {
-    window.open(LINKS.resume, "_blank")
-  }
 
   const scrollToProjects = () => {
     const element = document.getElementById("projects")
@@ -70,10 +63,6 @@ export function HeroSection() {
 
             <FadeInSection delay={400}>
               <div className="space-y-6">
-                <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-                  {t("hero.description")}
-                </p>
-
                 <div className="space-y-3">
                   <h3 className="text-lg font-semibold text-foreground">{t("hero.skills")}</h3>
                   <div className="flex flex-wrap gap-2 justify-center">
@@ -94,21 +83,13 @@ export function HeroSection() {
                 <FadeInSection delay={800}>
                   <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center">
                     <Button
-                      onClick={handleDownloadResume}
-                      size="lg"
-                      className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8 py-3 transition-all duration-300 hover:scale-105 hover:shadow-lg"
-                    >
-                      <Download className="w-5 h-5 mr-2" />
-                      {t("hero.downloadResume")}
-                    </Button>
-                    <Button
                       onClick={scrollToProjects}
                       variant="outline"
                       size="lg"
-                      className="border-primary text-primary hover:bg-primary hover:text-primary-foreground px-8 py-3 transition-all duration-300 hover:scale-105 bg-transparent"
+                      className="border-primary text-primary hover:bg-transparent hover:text-primary px-8 py-3 transition-all duration-300 hover:scale-100 bg-transparent hover:scale-105 hover:animate-glow"
                     >
                       {t("hero.viewProjects")}
-                      <ArrowDown className="w-5 h-5 ml-2" />
+                      <ArrowDown className="w-5 h-5 ml-2 animate-bounce" />
                     </Button>
                   </div>
                 </FadeInSection>
@@ -116,20 +97,6 @@ export function HeroSection() {
             </FadeInSection>
           </div>
         </div>
-
-        {/* Scroll indicator */}
-        <FadeInSection delay={1000}>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-            <div className="w-6 h-10 border-2 border-primary rounded-full flex justify-center">
-              <div className="w-1 h-3 bg-primary rounded-full mt-2 animate-pulse" />
-            </div>
-          </div>
-        </FadeInSection>
       </div>
     </section>
   )

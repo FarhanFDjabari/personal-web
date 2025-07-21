@@ -7,7 +7,6 @@ import { Github, ExternalLink, Loader2, Star, GitFork } from "lucide-react"
 import Link from "next/link"
 import { FadeInSection } from "@/components/fade-in-section"
 import { useTranslation } from "@/hooks/use-translation"
-import { LINKS } from "@/lib/constants"
 import { useEffect, useState } from "react"
 import { fetchPinnedRepositories } from "@/lib/services/github-api"
 
@@ -82,19 +81,19 @@ export function ProjectsSection() {
         <div className="grid md:grid-cols-2 gap-8">
           {projects.map((project, index) => (
             <FadeInSection key={index} delay={index * 200}>
-              <Card className="bg-card border-border hover:border-primary transition-all duration-500 hover:shadow-xl hover:shadow-primary/10 group hover:scale-105">
-                <CardHeader>
+              <Card className="bg-card border-border hover:border-primary transition-all duration-500 hover:shadow-xl hover:shadow-primary/10 group hover:scale-105 h-full flex flex-col">
+                <CardHeader className="flex-none">
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
                       <CardTitle className="text-2xl text-foreground mb-2 group-hover:text-primary transition-colors duration-300">
                         {project.title}
                       </CardTitle>
-                      <CardDescription className="text-muted-foreground text-base leading-relaxed">
+                      <CardDescription className="text-muted-foreground text-base leading-relaxed line-clamp-3">
                         {project.description}
                       </CardDescription>
                     </div>
                     {(project.stars > 0 || project.forks > 0) && (
-                      <div className="flex items-center gap-3 text-sm text-muted-foreground ml-4">
+                      <div className="flex items-center gap-3 text-sm text-muted-foreground ml-4 flex-shrink-0">
                         {project.stars > 0 && (
                           <div className="flex items-center gap-1">
                             <Star className="w-4 h-4" />
@@ -111,7 +110,7 @@ export function ProjectsSection() {
                     )}
                   </div>
                 </CardHeader>
-                <CardContent className="space-y-4">
+                <CardContent className="space-y-4 flex-1 flex flex-col">
                   <div className="flex flex-wrap gap-2">
                     {project.technologies.slice(0,4).map((tech, techIndex) => (
                       <Badge
@@ -132,7 +131,7 @@ export function ProjectsSection() {
                       </Badge>
                     )}
                   </div>
-                  <div className="flex gap-3 pt-2">
+                  <div className="flex gap-3 pt-2 mt-auto">
                     <Button
                       asChild
                       size="sm"
