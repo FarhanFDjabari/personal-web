@@ -40,7 +40,13 @@ export async function GET(request: NextRequest) {
     const cached = await getFromCache(`${CACHE_KEY}_${username}`)
     if (cached) {
         logger.info('Using cached GitHub repositories', { username })
-        return NextResponse.json(cached)
+        return NextResponse.json(cached, {
+            headers: {
+                'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=86400',
+                'CDN-Cache-Control': 'public, s-maxage=3600',
+                'Vercel-CDN-Cache-Control': 'public, s-maxage=3600',
+            }
+        })
     }
 
     try {
@@ -151,6 +157,10 @@ export async function GET(request: NextRequest) {
                 'Access-Control-Allow-Origin': '*',
                 'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
                 'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+                // HTTP Edge Caching - cache for 1 hour, serve stale for 24 hours
+                'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=86400',
+                'CDN-Cache-Control': 'public, s-maxage=3600',
+                'Vercel-CDN-Cache-Control': 'public, s-maxage=3600',
             },
         })
 
@@ -161,7 +171,14 @@ export async function GET(request: NextRequest) {
         const fallbackCached = await getFromCache(`${CACHE_KEY}_${username}`)
         if (fallbackCached) {
             logger.info('Using stale cached data as fallback', { username })
-            return NextResponse.json(fallbackCached, { status: 200 })
+            return NextResponse.json(fallbackCached, { 
+                status: 200,
+                headers: {
+                    'Cache-Control': 'public, s-maxage=1800, stale-while-revalidate=43200', // Shorter cache for fallback
+                    'CDN-Cache-Control': 'public, s-maxage=1800',
+                    'Vercel-CDN-Cache-Control': 'public, s-maxage=1800',
+                }
+            })
         }
 
         return NextResponse.json(

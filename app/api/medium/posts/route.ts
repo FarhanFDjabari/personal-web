@@ -70,7 +70,13 @@ export async function GET(request: NextRequest) {
     let arrayCached = Array.isArray(cached) ? cached : []
     logger.info('Using cached Medium posts', { username, limit, totalCached: arrayCached.length })
     const limitedPosts = arrayCached.slice(0, limit)
-    return NextResponse.json(limitedPosts)
+    return NextResponse.json(limitedPosts, {
+      headers: {
+        'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=86400',
+        'CDN-Cache-Control': 'public, s-maxage=3600',
+        'Vercel-CDN-Cache-Control': 'public, s-maxage=3600',
+      }
+    })
   }
 
   try {
@@ -184,6 +190,10 @@ export async function GET(request: NextRequest) {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
         'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+        // HTTP Edge Caching - cache for 1 hour, serve stale for 24 hours
+        'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=86400',
+        'CDN-Cache-Control': 'public, s-maxage=3600',
+        'Vercel-CDN-Cache-Control': 'public, s-maxage=3600',
       },
     })
 
@@ -196,7 +206,13 @@ export async function GET(request: NextRequest) {
       let arrayStaleCache = Array.isArray(staleCache) ? staleCache : []
       logger.info('Using stale Medium cache as fallback', { username, limit, totalCached: arrayStaleCache.length })
       const limitedPosts = arrayStaleCache.slice(0, limit)
-      return NextResponse.json(limitedPosts)
+      return NextResponse.json(limitedPosts, {
+        headers: {
+          'Cache-Control': 'public, s-maxage=1800, stale-while-revalidate=43200', // Shorter cache for fallback
+          'CDN-Cache-Control': 'public, s-maxage=1800',
+          'Vercel-CDN-Cache-Control': 'public, s-maxage=1800',
+        }
+      })
     }
 
     return NextResponse.json(
