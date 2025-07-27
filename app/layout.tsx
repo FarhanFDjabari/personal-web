@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     description: "Portfolio of Farhan Fadhilah Djabari, a skilled Mobile Developer specializing in Kotlin and Flutter.",
   },
   generator: 'v0.dev',
-  manifest: "/site.webmanifest",
+  manifest: "/manifest.json",
 }
 
 export default function RootLayout({
@@ -58,7 +58,7 @@ export default function RootLayout({
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-96x96.png" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-        <link rel="manifest" href="/site.webmanifest" />
+        <link rel="manifest" href="/manifest.json" />
 
         {/* Theme color for mobile browsers */}
         <meta name="theme-color" content="#000000" />
