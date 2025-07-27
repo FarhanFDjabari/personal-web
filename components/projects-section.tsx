@@ -88,7 +88,7 @@ export function ProjectsSection() {
                       <CardTitle className="text-2xl text-foreground mb-2 group-hover:text-primary transition-colors duration-300">
                         {project.title}
                       </CardTitle>
-                      <CardDescription className="text-muted-foreground text-base leading-relaxed line-clamp-3">
+                      <CardDescription className="text-muted-foreground text-base leading-relaxed line-clamp-3 break-words overflow-hidden text-ellipsis">
                         {project.description}
                       </CardDescription>
                     </div>

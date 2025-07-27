@@ -69,7 +69,7 @@ export default function BlogPage() {
             </p>
           </div>
 
-          <div className="grid gap-8">
+          <div className="grid grid-cols-1 gap-8">
             {posts.map((post, index) => (
               <Card key={post.link || index} className="bg-card border-border hover:border-primary transition-colors">
                 <CardHeader>
@@ -89,7 +89,7 @@ export default function BlogPage() {
                       <ExternalLink className="w-5 h-5" />
                     </Link>
                   </CardTitle>
-                  <CardDescription className="text-muted-foreground line-clamp-5 text-base leading-relaxed">
+                  <CardDescription className="text-muted-foreground line-clamp-5 text-base leading-relaxed break-words overflow-hidden text-ellipsis">
                     {post.contentSnippet || post.description || 'No description available.'}
                   </CardDescription>
                 </CardHeader>

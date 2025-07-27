@@ -86,10 +86,10 @@ export function BlogSection() {
           </div>
         </FadeInSection>
 
-        <div className="grid md:grid-cols-3 gap-8 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {posts.map((post, index) => (
             <FadeInSection key={post.link || index} delay={index * 200}>
-              <Card className="bg-card border-border hover:border-primary transition-all duration-500 hover:shadow-lg group hover:scale-105">
+              <Card className="bg-card border-border hover:border-primary transition-all duration-500 hover:shadow-lg group hover:scale-105 w-full">
                 <CardHeader>
                   <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
                     <Calendar className="w-4 h-4" />
@@ -98,7 +98,7 @@ export function BlogSection() {
                   <CardTitle className="text-xl text-foreground leading-tight group-hover:text-primary transition-colors duration-300 line-clamp-2">
                     {post.title}
                   </CardTitle>
-                  <CardDescription className="text-muted-foreground line-clamp-3">
+                  <CardDescription className="text-muted-foreground line-clamp-3 break-words overflow-hidden text-ellipsis">
                     {post.contentSnippet || post.description || 'No description available.'}
                   </CardDescription>
                 </CardHeader>
