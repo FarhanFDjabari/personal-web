@@ -17,16 +17,14 @@ export default function BlogPage() {
   const [error, setError] = useState<string | null>(null)
   const [refreshing, setRefreshing] = useState(false)
 
-  async function loadPosts(forceRefresh: boolean = false) {
+  async function loadPosts() {
     try {
-      if (forceRefresh) {
-        setRefreshing(true)
-      } else {
-        setLoading(true)
-      }
+      setLoading(true)
       setError(null)
 
-      const mediumPosts = await fetchMediumPosts('djabaridev', 10, forceRefresh)
+      setError(null)
+
+      const mediumPosts = await fetchMediumPosts('djabaridev', 10)
 
       if (mediumPosts.length > 0) {
         setPosts(mediumPosts)
@@ -91,8 +89,8 @@ export default function BlogPage() {
                       <ExternalLink className="w-5 h-5" />
                     </Link>
                   </CardTitle>
-                  <CardDescription className="text-muted-foreground text-base leading-relaxed">
-                    {post.description || post.contentSnippet}
+                  <CardDescription className="text-muted-foreground line-clamp-5 text-base leading-relaxed">
+                    {post.contentSnippet || post.description || 'No description available.'}
                   </CardDescription>
                 </CardHeader>
                 <CardContent>

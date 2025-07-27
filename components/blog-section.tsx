@@ -17,18 +17,13 @@ export function BlogSection() {
   const [posts, setPosts] = useState<BlogPost[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const [refreshing, setRefreshing] = useState(false)
 
-  async function loadPosts(forceRefresh: boolean = false) {
+  async function loadPosts() {
     try {
-      if (forceRefresh) {
-        setRefreshing(true)
-      } else {
-        setLoading(true)
-      }
+      setLoading(true)
       setError(null)
 
-      const mediumPosts = await fetchMediumPosts('djabaridev', 3, forceRefresh)
+      const mediumPosts = await fetchMediumPosts('djabaridev', 3)
 
       if (mediumPosts.length > 0) {
         setPosts(mediumPosts)
@@ -42,7 +37,6 @@ export function BlogSection() {
       setError('Medium API unavailable - showing sample posts')
     } finally {
       setLoading(false)
-      setRefreshing(false)
     }
   }
 
@@ -105,7 +99,7 @@ export function BlogSection() {
                     {post.title}
                   </CardTitle>
                   <CardDescription className="text-muted-foreground line-clamp-3">
-                    {post.description || post.contentSnippet}
+                    {post.contentSnippet || post.description || 'No description available.'}
                   </CardDescription>
                 </CardHeader>
                 <CardContent>

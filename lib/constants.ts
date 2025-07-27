@@ -5,3 +5,6 @@ export const LINKS = {
     medium: "https://medium.com/@djabaridev",
     email: "mailto:farhanf@djabari-dev.my.id"
 } as const
+
+export const MEDIUM_CACHE_DURATION = 6 * 60 * 60 * 1000 // 6 hours
+export const GITHUB_CACHE_DURATION = 24 * 60 * 60 * 1000 // 24 hours
