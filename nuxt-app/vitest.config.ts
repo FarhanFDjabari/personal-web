@@ -19,6 +19,7 @@ export default defineConfig({
       ],
     },
     include: ['**/*.{test,spec}.{js,ts}'],
+    exclude: ['**/tests/e2e/**', '**/e2e/**', 'node_modules/**'],
   },
   resolve: {
     alias: {
