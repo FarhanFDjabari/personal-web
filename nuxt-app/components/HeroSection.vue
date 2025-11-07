@@ -8,6 +8,7 @@ const { t } = useI18n()
 const skills = [
   { name: 'Flutter', icon: 'lucide:smartphone', level: 95 },
   { name: 'Kotlin', icon: 'lucide:code-2', level: 90 },
+  { name: 'Swift/iOS', icon: 'lucide:apple', level: 85 },
 ]
 
 const projectsSection = ref<HTMLElement>()
