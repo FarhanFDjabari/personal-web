@@ -74,7 +74,7 @@ export default defineNuxtConfig({
   },
 
   // CSS
-  css: ['assets/css/tailwind.css'],
+  css: ['~/assets/css/tailwind.css'],
 
   // TypeScript Configuration
   typescript: {
