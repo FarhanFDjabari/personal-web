@@ -40,24 +40,26 @@ const contactMethods = [
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Card
-          v-for="method in contactMethods"
+          v-for="(method, index) in contactMethods"
           :key="method.label"
-          class="hover-lift transition-all duration-300 text-center"
+          data-scroll-reveal
+          class="glass-card hover-lift card-shadow transition-all duration-300 text-center group border-border/50 hover:border-primary/30"
+          :style="{ transitionDelay: `${index * 100}ms` }"
         >
           <CardContent class="pt-6 space-y-4">
-            <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
-              <Icon :name="method.icon" class="w-6 h-6 text-primary" />
+            <div class="w-14 h-14 rounded-full bg-gradient-to-br from-primary/20 to-purple-500/20 flex items-center justify-center mx-auto group-hover:scale-110 transition-transform">
+              <Icon :name="method.icon" class="w-7 h-7 text-primary" />
             </div>
             <div class="space-y-2">
-              <h3 class="font-semibold">
+              <h3 class="font-semibold group-hover:text-primary transition-colors">
                 {{ method.label }}
               </h3>
               <p class="text-sm text-muted-foreground break-all">
                 {{ method.value }}
               </p>
             </div>
-            <Button as="a" :href="method.href" target="_blank" variant="outline" class="w-full gap-2">
-              <Icon name="lucide:external-link" class="w-4 h-4" />
+            <Button as="a" :href="method.href" target="_blank" variant="outline" class="w-full gap-2 glass-button group/btn">
+              <Icon name="lucide:external-link" class="w-4 h-4 group-hover/btn:rotate-45 transition-transform" />
               Connect
             </Button>
           </CardContent>
