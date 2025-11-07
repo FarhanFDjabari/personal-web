@@ -1,0 +1,46 @@
+{
+  "nav": {
+    "about": "Tentang",
+    "projects": "Proyek",
+    "blog": "Blog",
+    "contact": "Kontak"
+  },
+  "hero": {
+    "title": "Farhan Fadhilah Djabari",
+    "subtitle": "Mobile Developer",
+    "tagline": "Crafting clean, efficient, and user-centric mobile experiences with Kotlin and Flutter.",
+    "skills": "Keahlian Utama",
+    "downloadResume": "Unduh Resume",
+    "viewProjects": "Lihat Proyek"
+  },
+  "projects": {
+    "title": "Proyek",
+    "titleHighlight": "Unggulan",
+    "subtitle": "Showcase project mobile development saya, menampilkan aplikasi yang dibangun dengan Flutter dan Kotlin.",
+    "github": "GitHub",
+    "liveDemo": "Live Demo"
+  },
+  "blog": {
+    "title": "Pemikiran &",
+    "titleHighlight": "Tulisan Saya",
+    "subtitle": "Wawasan dan tutorial tentang pengembangan mobile, berbagi pengetahuan dan pengalaman dari perjalanan saya.",
+    "viewAll": "Lihat Semua Artikel",
+    "findMeOn": "Temukan saya juga di",
+    "medium": "Medium"
+  },
+  "contact": {
+    "title": "Mari",
+    "titleHighlight": "Terhubung",
+    "subtitle": "Mari berkoneksi! Hubungi saya untuk kolaborasi, peluang, atau sekadar menyapa.",
+    "connect": {
+      "title": "Mari Terhubung"
+    },
+    "email": "Email",
+    "github": "GitHub",
+    "linkedin": "LinkedIn"
+  },
+  "footer": {
+    "madeWith": "Dibuat dengan",
+    "and": "dan banyak"
+  }
+}

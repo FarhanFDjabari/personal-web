@@ -34,25 +34,12 @@ export default defineNuxtConfig({
   // Internationalization Configuration
   i18n: {
     locales: [
-      {
-        code: 'en',
-        iso: 'en-US',
-        name: 'English',
-      },
-      {
-        code: 'id',
-        iso: 'id-ID',
-        name: 'Indonesian',
-      },
+      { code: 'en', file: 'en.json' },
+      { code: 'id', file: 'id.json' },
     ],
+    langDir: 'locales',
     defaultLocale: 'en',
     strategy: 'no_prefix',
-    detectBrowserLanguage: {
-      useCookie: true,
-      cookieKey: 'i18n_redirected',
-      redirectOn: 'root',
-    },
-    vueI18n: './i18n.config.ts',
   },
 
   // App Configuration

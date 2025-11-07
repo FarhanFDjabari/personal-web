@@ -5,11 +5,7 @@ import { LINKS } from '~/utils/constants'
 
 const { t } = useI18n()
 
-const skills = [
-  { name: 'Flutter', icon: 'lucide:smartphone', level: 95 },
-  { name: 'Kotlin', icon: 'lucide:code-2', level: 90 },
-  { name: 'Swift/iOS', icon: 'lucide:apple', level: 85 },
-]
+const skills = ['Flutter', 'Kotlin', 'Swift/iOS']
 
 const projectsSection = ref<HTMLElement>()
 
@@ -53,31 +49,15 @@ const scrollToProjects = () => {
           {{ t('hero.tagline') }}
         </p>
 
-        <!-- Interactive Skill Cards -->
-        <div class="flex gap-4 justify-center max-w-3xl mx-auto pt-4">
+        <!-- Skills -->
+        <div class="flex gap-3 justify-center flex-wrap max-w-2xl mx-auto pt-4">
           <div
             v-for="(skill, i) in skills"
-            :key="skill.name"
-            class="group relative p-6 w-40 rounded-xl glass-card border hover:border-primary/50 transition-all duration-300 hover:scale-105 cursor-default"
+            :key="skill"
+            class="px-6 py-3 rounded-lg glass-card border hover:border-primary/50 transition-all duration-300 hover:scale-105 cursor-default"
             :style="{ animationDelay: `${i * 100}ms` }"
           >
-            <!-- Hover gradient overlay -->
-            <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-xl" />
-
-            <div class="relative text-center space-y-2">
-              <Icon :name="skill.icon" class="w-8 h-8 mx-auto text-primary group-hover:scale-110 transition-transform" />
-              <p class="text-sm font-medium">{{ skill.name }}</p>
-
-              <!-- Skill level indicator on hover -->
-              <div class="opacity-0 group-hover:opacity-100 transition-opacity">
-                <div class="h-1 bg-muted rounded-full overflow-hidden">
-                  <div
-                    class="h-full bg-gradient-to-r from-primary to-purple-500 transition-all duration-700"
-                    :style="{ width: `${skill.level}%` }"
-                  />
-                </div>
-              </div>
-            </div>
+            <p class="text-sm font-medium">{{ skill }}</p>
           </div>
         </div>
 

@@ -1,0 +1,46 @@
+{
+  "nav": {
+    "about": "About",
+    "projects": "Projects",
+    "blog": "Blog",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "Farhan Fadhilah Djabari",
+    "subtitle": "Mobile Developer",
+    "tagline": "Crafting clean, efficient, and user-centric mobile experiences with Kotlin and Flutter.",
+    "skills": "Key Skills",
+    "downloadResume": "Download Resume",
+    "viewProjects": "View Projects"
+  },
+  "projects": {
+    "title": "Featured",
+    "titleHighlight": "Projects",
+    "subtitle": "A showcase of my mobile development work, featuring applications built with Flutter and Kotlin.",
+    "github": "GitHub",
+    "liveDemo": "Live Demo"
+  },
+  "blog": {
+    "title": "My Thoughts &",
+    "titleHighlight": "Writings",
+    "subtitle": "Insights and tutorials on mobile development, sharing knowledge and experiences from my journey.",
+    "viewAll": "View All Articles",
+    "findMeOn": "Also find me on",
+    "medium": "Medium"
+  },
+  "contact": {
+    "title": "Get In",
+    "titleHighlight": "Touch",
+    "subtitle": "Feel free to get in touch for collaborations, opportunities, or just to say hello.",
+    "connect": {
+      "title": "Let's Connect"
+    },
+    "email": "Email",
+    "github": "GitHub",
+    "linkedin": "LinkedIn"
+  },
+  "footer": {
+    "madeWith": "Made with",
+    "and": "and lots of"
+  }
+}
