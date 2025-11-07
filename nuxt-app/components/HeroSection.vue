@@ -1,13 +1,10 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { LINKS } from '~/utils/constants'
 
 const { t } = useI18n()
 
 const skills = ['Flutter', 'Kotlin', 'Swift/iOS']
-
-const projectsSection = ref<HTMLElement>()
 
 const scrollToProjects = () => {
   const element = document.getElementById('projects')
@@ -18,67 +15,101 @@ const scrollToProjects = () => {
 </script>
 
 <template>
-  <section id="about" class="min-h-screen flex items-center justify-center px-4 py-20 relative overflow-hidden">
-    <!-- Animated Background -->
-    <div class="absolute inset-0 -z-10 overflow-hidden">
-      <!-- Grid Pattern -->
-      <div class="absolute inset-0 bg-grid-pattern opacity-[0.02] dark:opacity-[0.03]" />
+  <section id="about" class="section">
+    <h1>{{ t('hero.title') }}</h1>
+    <p class="subtitle">{{ t('hero.subtitle') }}</p>
 
-      <!-- Floating Gradient Orbs -->
-      <div class="absolute top-20 -left-20 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-float" />
-      <div class="absolute bottom-20 -right-20 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-float-delayed" />
-      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl animate-pulse-slow" />
+    <p class="tagline">{{ t('hero.tagline') }}</p>
 
-      <!-- Radial gradient overlay -->
-      <div class="absolute inset-0 bg-gradient-radial from-transparent via-background/50 to-background" />
+    <div class="skills">
+      <strong>{{ t('hero.skills') }}:</strong>
+      <span v-for="(skill, i) in skills" :key="skill">
+        {{ skill }}<span v-if="i < skills.length - 1">, </span>
+      </span>
     </div>
 
-    <div class="container mx-auto relative z-10">
-      <div class="max-w-4xl mx-auto text-center space-y-10 animate-fade-in-up">
-        <!-- Title with improved hierarchy -->
-        <div class="space-y-6">
-          <h1 class="text-5xl md:text-7xl font-bold tracking-tight leading-tight">
-            <span class="gradient-text-animated">{{ t('hero.title') }}</span>
-          </h1>
-          <p class="text-xl md:text-3xl text-muted-foreground font-medium">
-            {{ t('hero.subtitle') }}
-          </p>
-        </div>
-
-        <p class="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-          {{ t('hero.tagline') }}
-        </p>
-
-        <!-- Skills -->
-        <div class="flex gap-3 justify-center flex-wrap max-w-2xl mx-auto pt-4">
-          <div
-            v-for="(skill, i) in skills"
-            :key="skill"
-            class="px-6 py-3 rounded-lg glass-card border hover:border-primary/50 transition-all duration-300 hover:scale-105 cursor-default"
-            :style="{ animationDelay: `${i * 100}ms` }"
-          >
-            <p class="text-sm font-medium">{{ skill }}</p>
-          </div>
-        </div>
-
-        <!-- CTA Buttons -->
-        <div class="flex gap-4 justify-center flex-wrap pt-4">
-          <Button as="a" :href="LINKS.resume" target="_blank" size="lg" class="gap-2 group hover:shadow-lg hover:shadow-primary/25 transition-all">
-            <Icon name="lucide:download" class="w-4 h-4 group-hover:animate-bounce" />
-            {{ t('hero.downloadResume') }}
-          </Button>
-          <Button
-            as="button"
-            variant="outline"
-            size="lg"
-            class="glass-button group"
-            @click="scrollToProjects"
-          >
-            {{ t('hero.viewProjects') }}
-            <Icon name="lucide:arrow-down" class="w-4 h-4 ml-2 group-hover:translate-y-1 transition-transform" />
-          </Button>
-        </div>
-      </div>
+    <div class="actions">
+      <a :href="LINKS.resume" target="_blank" class="button">{{ t('hero.downloadResume') }}</a>
+      <button @click="scrollToProjects" class="button button-secondary">{{ t('hero.viewProjects') }}</button>
     </div>
   </section>
 </template>
+
+<style scoped>
+.section {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 3rem 1rem;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.subtitle {
+  font-size: 1.25rem;
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+.tagline {
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.skills {
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.button {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background: #0066cc;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+.button:hover {
+  background: #0052a3;
+}
+
+.button-secondary {
+  background: white;
+  color: #0066cc;
+  border: 2px solid #0066cc;
+}
+
+.button-secondary:hover {
+  background: #f0f0f0;
+}
+
+@media (prefers-color-scheme: dark) {
+  .subtitle {
+    color: #aaa;
+  }
+
+  .button-secondary {
+    background: transparent;
+    color: #4a9eff;
+    border-color: #4a9eff;
+  }
+
+  .button-secondary:hover {
+    background: #1a1a1a;
+  }
+}
+</style>

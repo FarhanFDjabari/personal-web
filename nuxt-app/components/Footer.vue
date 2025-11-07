@@ -7,50 +7,83 @@ const currentYear = new Date().getFullYear()
 </script>
 
 <template>
-  <footer class="border-t border-border bg-background/50 backdrop-blur-sm">
-    <div class="container mx-auto px-4 py-8">
-      <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-        <div class="text-sm text-muted-foreground">
-          © {{ currentYear }} Farhan Fadhilah Djabari. {{ t('footer.madeWith') }} ❤️
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="copyright">
+          © {{ currentYear }} Farhan Fadhilah Djabari
         </div>
 
-        <div class="flex gap-6">
-          <a
-            :href="LINKS.github"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-muted-foreground hover:text-primary transition-colors"
-            aria-label="GitHub"
-          >
-            <Icon name="lucide:github" class="w-5 h-5" />
-          </a>
-          <a
-            :href="LINKS.linkedin"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-muted-foreground hover:text-primary transition-colors"
-            aria-label="LinkedIn"
-          >
-            <Icon name="lucide:linkedin" class="w-5 h-5" />
-          </a>
-          <a
-            :href="LINKS.medium"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-muted-foreground hover:text-primary transition-colors"
-            aria-label="Medium"
-          >
-            <Icon name="lucide:book-open" class="w-5 h-5" />
-          </a>
-          <a
-            :href="LINKS.email"
-            class="text-muted-foreground hover:text-primary transition-colors"
-            aria-label="Email"
-          >
-            <Icon name="lucide:mail" class="w-5 h-5" />
-          </a>
+        <div class="social-links">
+          <a :href="LINKS.github" target="_blank" rel="noopener noreferrer" class="link">GitHub</a>
+          <a :href="LINKS.linkedin" target="_blank" rel="noopener noreferrer" class="link">LinkedIn</a>
+          <a :href="LINKS.medium" target="_blank" rel="noopener noreferrer" class="link">Medium</a>
+          <a :href="LINKS.email" class="link">Email</a>
         </div>
       </div>
     </div>
   </footer>
 </template>
+
+<style scoped>
+.footer {
+  border-top: 1px solid #ddd;
+  margin-top: 4rem;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.copyright {
+  font-size: 0.875rem;
+  color: #666;
+}
+
+.social-links {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.link {
+  color: #0066cc;
+  text-decoration: none;
+  font-size: 0.875rem;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+@media (prefers-color-scheme: dark) {
+  .footer {
+    border-top-color: #333;
+  }
+
+  .copyright {
+    color: #aaa;
+  }
+
+  .link {
+    color: #4a9eff;
+  }
+}
+
+@media (max-width: 640px) {
+  .footer-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+</style>

@@ -2,13 +2,9 @@
 import { ref, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { format } from 'date-fns'
-import { useScrollReveal } from '~/composables/useScrollReveal'
 
 const { t } = useI18n()
 const config = useRuntimeConfig()
-
-// Initialize scroll reveal
-useScrollReveal()
 
 interface BlogPost {
   title: string
@@ -41,78 +37,177 @@ const formatDate = (date: string) => {
 </script>
 
 <template>
-  <section class="py-20 px-4 bg-muted/30">
-    <div class="container mx-auto">
-      <div class="text-center mb-12 space-y-4">
-        <h2 class="text-3xl md:text-4xl font-bold">
-          {{ t('blog.title') }} <span class="gradient-text">{{ t('blog.titleHighlight') }}</span>
-        </h2>
-        <p class="text-muted-foreground max-w-2xl mx-auto">
-          {{ t('blog.subtitle') }}
-        </p>
-      </div>
+  <section class="section bg-section">
+    <h2>{{ t('blog.title') }} {{ t('blog.titleHighlight') }}</h2>
+    <p class="section-subtitle">{{ t('blog.subtitle') }}</p>
 
-      <div v-if="loading" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Card v-for="i in 3" :key="i" class="glass-card p-6 card-shadow">
-          <div class="space-y-4">
-            <div class="h-6 shimmer rounded w-3/4" />
-            <div class="h-4 shimmer rounded" />
-            <div class="h-4 shimmer rounded w-5/6" />
-          </div>
-        </Card>
-      </div>
+    <div v-if="loading" class="loading">
+      Loading blog posts...
+    </div>
 
-      <div v-else class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <Card
-          v-for="(post, index) in posts"
-          :key="post.link"
-          data-scroll-reveal
-          class="glass-card hover-lift card-shadow transition-all duration-300 flex flex-col group border-border/50 hover:border-primary/30"
-          :style="{ transitionDelay: `${index * 100}ms` }"
-        >
-          <CardHeader class="relative">
-            <!-- Gradient overlay on hover -->
-            <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none rounded-t-xl" />
+    <div v-else-if="posts.length === 0" class="empty">
+      No blog posts found.
+    </div>
 
-            <div class="flex items-center gap-2 text-sm text-muted-foreground mb-2 relative z-10">
-              <Icon name="lucide:calendar" class="w-4 h-4" />
-              <span>{{ formatDate(post.pubDate) }}</span>
-              <span>•</span>
-              <Icon name="lucide:clock" class="w-4 h-4" />
-              <span>{{ post.readTime }} min read</span>
-            </div>
-            <CardTitle class="line-clamp-2 group-hover:text-primary transition-colors relative z-10">
-              {{ post.title }}
-            </CardTitle>
-          </CardHeader>
-          <CardContent class="flex-1 flex flex-col justify-between gap-4 relative z-10">
-            <p class="text-muted-foreground line-clamp-3 leading-relaxed">
-              {{ post.contentSnippet }}
-            </p>
-            <div class="flex flex-wrap gap-2">
-              <Badge
-                v-for="category in post.categories.slice(0, 3)"
-                :key="category"
-                variant="secondary"
-                class="glass-card hover-scale"
-              >
-                {{ category }}
-              </Badge>
-            </div>
-            <Button as="a" :href="post.link" target="_blank" variant="outline" class="w-full mt-auto gap-2 glass-button group/btn">
-              Read More
-              <Icon name="lucide:arrow-right" class="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-            </Button>
-          </CardContent>
-        </Card>
-      </div>
+    <div v-else class="blog-list">
+      <article v-for="post in posts" :key="post.link" class="blog-card">
+        <div class="blog-meta">
+          <span>{{ formatDate(post.pubDate) }}</span>
+          <span>•</span>
+          <span>{{ post.readTime }} min read</span>
+        </div>
 
-      <div class="text-center">
-        <Button as="a" href="/blog" size="lg" class="gap-2">
-          {{ t('blog.viewAll') }}
-          <Icon name="lucide:arrow-right" class="w-4 h-4" />
-        </Button>
-      </div>
+        <h3>
+          <a :href="post.link" target="_blank" class="blog-title">{{ post.title }}</a>
+        </h3>
+
+        <p class="blog-excerpt">{{ post.contentSnippet }}</p>
+
+        <div class="blog-categories">
+          <span v-for="category in post.categories.slice(0, 3)" :key="category" class="category-tag">
+            {{ category }}
+          </span>
+        </div>
+      </article>
+    </div>
+
+    <div class="view-all">
+      <a href="/blog" class="button">{{ t('blog.viewAll') }}</a>
     </div>
   </section>
 </template>
+
+<style scoped>
+.section {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 3rem 1rem;
+}
+
+.bg-section {
+  background: #f9f9f9;
+}
+
+h2 {
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.section-subtitle {
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.loading,
+.empty {
+  padding: 2rem;
+  text-align: center;
+  color: #666;
+}
+
+.blog-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.blog-card {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 1.5rem;
+}
+
+.blog-card:last-child {
+  border-bottom: none;
+}
+
+.blog-meta {
+  font-size: 0.875rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 0.75rem 0;
+}
+
+.blog-title {
+  color: inherit;
+  text-decoration: none;
+}
+
+.blog-title:hover {
+  color: #0066cc;
+}
+
+.blog-excerpt {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+  color: #333;
+}
+
+.blog-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.category-tag {
+  font-size: 0.875rem;
+  padding: 0.25rem 0.75rem;
+  background: #e8e8e8;
+  border-radius: 3px;
+}
+
+.view-all {
+  text-align: center;
+}
+
+.button {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background: #0066cc;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.button:hover {
+  background: #0052a3;
+}
+
+@media (prefers-color-scheme: dark) {
+  .bg-section {
+    background: #1a1a1a;
+  }
+
+  .section-subtitle,
+  .loading,
+  .empty,
+  .blog-meta {
+    color: #aaa;
+  }
+
+  .blog-card {
+    border-bottom-color: #333;
+  }
+
+  .blog-excerpt {
+    color: #ccc;
+  }
+
+  .category-tag {
+    background: #2a2a2a;
+  }
+
+  .blog-title:hover {
+    color: #4a9eff;
+  }
+}
+</style>

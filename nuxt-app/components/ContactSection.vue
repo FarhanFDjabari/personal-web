@@ -6,19 +6,16 @@ const { t } = useI18n()
 
 const contactMethods = [
   {
-    icon: 'lucide:mail',
     label: t('contact.email'),
     value: 'farhanf@djabari-dev.my.id',
     href: LINKS.email,
   },
   {
-    icon: 'lucide:github',
     label: t('contact.github'),
     value: 'farhanfdjabari',
     href: LINKS.github,
   },
   {
-    icon: 'lucide:linkedin',
     label: t('contact.linkedin'),
     value: 'Farhan Fadhilah Djabari',
     href: LINKS.linkedin,
@@ -27,44 +24,73 @@ const contactMethods = [
 </script>
 
 <template>
-  <section id="contact" class="py-20 px-4">
-    <div class="container mx-auto max-w-4xl">
-      <div class="text-center mb-12 space-y-4">
-        <h2 class="text-3xl md:text-4xl font-bold">
-          {{ t('contact.title') }} <span class="gradient-text">{{ t('contact.titleHighlight') }}</span>
-        </h2>
-        <p class="text-muted-foreground max-w-2xl mx-auto">
-          {{ t('contact.subtitle') }}
-        </p>
-      </div>
+  <section id="contact" class="section">
+    <h2>{{ t('contact.title') }} {{ t('contact.titleHighlight') }}</h2>
+    <p class="section-subtitle">{{ t('contact.subtitle') }}</p>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Card
-          v-for="(method, index) in contactMethods"
-          :key="method.label"
-          data-scroll-reveal
-          class="glass-card hover-lift card-shadow transition-all duration-300 text-center group border-border/50 hover:border-primary/30"
-          :style="{ transitionDelay: `${index * 100}ms` }"
-        >
-          <CardContent class="pt-6 space-y-4">
-            <div class="w-14 h-14 rounded-full bg-gradient-to-br from-primary/20 to-purple-500/20 flex items-center justify-center mx-auto group-hover:scale-110 transition-transform">
-              <Icon :name="method.icon" class="w-7 h-7 text-primary" />
-            </div>
-            <div class="space-y-2">
-              <h3 class="font-semibold group-hover:text-primary transition-colors">
-                {{ method.label }}
-              </h3>
-              <p class="text-sm text-muted-foreground break-all">
-                {{ method.value }}
-              </p>
-            </div>
-            <Button as="a" :href="method.href" target="_blank" variant="outline" class="w-full gap-2 glass-button group/btn">
-              <Icon name="lucide:external-link" class="w-4 h-4 group-hover/btn:rotate-45 transition-transform" />
-              Connect
-            </Button>
-          </CardContent>
-        </Card>
+    <div class="contact-list">
+      <div v-for="method in contactMethods" :key="method.label" class="contact-item">
+        <strong>{{ method.label }}:</strong>
+        <a :href="method.href" target="_blank" class="link">{{ method.value }}</a>
       </div>
     </div>
   </section>
 </template>
+
+<style scoped>
+.section {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 3rem 1rem;
+}
+
+h2 {
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.section-subtitle {
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.contact-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.link {
+  color: #0066cc;
+  text-decoration: none;
+  word-break: break-all;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+@media (prefers-color-scheme: dark) {
+  .section-subtitle {
+    color: #aaa;
+  }
+
+  .link {
+    color: #4a9eff;
+  }
+}
+
+@media (min-width: 768px) {
+  .contact-item {
+    flex-direction: row;
+    gap: 1rem;
+  }
+}
+</style>

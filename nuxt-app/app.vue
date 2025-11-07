@@ -16,7 +16,7 @@ useHead({
 <template>
   <div>
     <Header />
-    <main class="min-h-screen">
+    <main>
       <NuxtPage />
     </main>
     <Footer />
