@@ -8,9 +8,6 @@ const { t } = useI18n()
 const skills = [
   { name: 'Flutter', icon: 'lucide:smartphone', level: 95 },
   { name: 'Kotlin', icon: 'lucide:code-2', level: 90 },
-  { name: 'React Native', icon: 'lucide:atom', level: 85 },
-  { name: 'Firebase', icon: 'lucide:flame', level: 88 },
-  { name: 'REST API', icon: 'lucide:workflow', level: 92 },
 ]
 
 const projectsSection = ref<HTMLElement>()
@@ -56,11 +53,11 @@ const scrollToProjects = () => {
         </p>
 
         <!-- Interactive Skill Cards -->
-        <div class="grid grid-cols-2 md:grid-cols-5 gap-4 max-w-3xl mx-auto pt-4">
+        <div class="flex gap-4 justify-center max-w-3xl mx-auto pt-4">
           <div
             v-for="(skill, i) in skills"
             :key="skill.name"
-            class="group relative p-4 rounded-xl glass-card border hover:border-primary/50 transition-all duration-300 hover:scale-105 cursor-default"
+            class="group relative p-6 w-40 rounded-xl glass-card border hover:border-primary/50 transition-all duration-300 hover:scale-105 cursor-default"
             :style="{ animationDelay: `${i * 100}ms` }"
           >
             <!-- Hover gradient overlay -->
