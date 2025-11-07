@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
-import { useColorMode } from '@nuxtjs/color-mode'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
