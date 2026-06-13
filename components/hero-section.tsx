@@ -64,7 +64,7 @@ export function HeroSection() {
             <FadeInSection delay={400}>
               <div className="space-y-6">
                 <div className="space-y-3">
-                  <h3 className="text-lg font-semibold text-foreground">{t("hero.skills")}</h3>
+                  <p className="text-lg font-semibold text-foreground">{t("hero.skills")}</p>
                   <div className="flex flex-wrap gap-2 justify-center">
                     {skills.map((skill, index) => (
                       <FadeInSection key={skill} delay={600 + index * 100}>

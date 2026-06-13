@@ -40,6 +40,7 @@ export function Footer() {
                   key={social.label}
                   href={social.href}
                   target="_blank"
+                  rel="noopener noreferrer"
                   className="text-muted-foreground hover:text-primary transition-all duration-300 hover:scale-110"
                   aria-label={social.label}
                   style={{ animationDelay: `${index * 100}ms` }}

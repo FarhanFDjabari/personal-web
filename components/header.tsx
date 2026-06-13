@@ -5,6 +5,7 @@ import Link from "next/link"
 import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/theme-toggle"
+import { LanguageToggle } from "@/components/language-toggle"
 import { useTranslation } from "@/hooks/use-translation"
 
 export function Header() {
@@ -30,6 +31,7 @@ export function Header() {
 
   const navItems = [
     { key: "about", section: "about" },
+    { key: "experience", section: "experience" },
     { key: "projects", section: "projects" },
     { key: "contact", section: "contact" },
   ]
@@ -82,7 +84,8 @@ export function Header() {
 
           <div className="flex justify-end">
             {/* Controls */}
-            <div className="hidden md:flex items-center">
+            <div className="hidden md:flex items-center gap-2">
+              <LanguageToggle />
               <ThemeToggle />
             </div>
 
@@ -94,6 +97,9 @@ export function Header() {
                 size="sm"
                 className="text-foreground transition-all duration-300 hover:scale-110"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                aria-label={isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+                aria-expanded={isMobileMenuOpen}
+                aria-controls="mobile-navigation"
               >
                 {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               </Button>
@@ -107,7 +113,7 @@ export function Header() {
             }`}
         >
           <div className="bg-background/95 backdrop-blur-md border-t border-border">
-            <nav className="flex flex-col space-y-4 p-4">
+            <nav id="mobile-navigation" className="flex flex-col space-y-4 p-4">
               {navItems.map((item, index) => (
                 <button
                   key={item.key}
@@ -131,6 +137,9 @@ export function Header() {
               >
                 {t("nav.blog")}
               </Link>
+              <div className="pt-2">
+                <LanguageToggle />
+              </div>
             </nav>
           </div>
         </div>

@@ -131,7 +131,7 @@ export function BlogSection() {
                     variant="ghost"
                     className="w-full transition-all duration-300 hover:scale-100 rounded-b-lg rounded-t-none flex items-center justify-center"
                   >
-                    <Link href={post.link} target="_blank">
+                    <Link href={post.link} target="_blank" rel="noopener noreferrer">
                       Read More
                       <ExternalLink className="w-4 h-4 ml-2" />
                     </Link>
@@ -159,6 +159,7 @@ export function BlogSection() {
               <Link
                 href={LINKS.medium}
                 target="_blank"
+                rel="noopener noreferrer"
                 className="text-primary hover:underline transition-all duration-300 hover:scale-105 inline-block"
               >
                 {t("blog.medium")}

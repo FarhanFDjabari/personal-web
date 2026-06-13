@@ -1,0 +1,89 @@
+{
+  "about": "Enthusiastic Software Engineer with experience building scalable, high-performance mobile apps using Kotlin, Flutter, and Jetpack Compose. Comfortable working across teams and taking initiative on improvements that enhance app performance and developer productivity. Eager to keep learning and contribute to impactful solutions in a collaborative tech environment.",
+  "headline": "Mobile Engineer | Kotlin, Flutter, Compose | Building Scalable Mobile Apps",
+  "location": "Jakarta Metropolitan Area",
+  "experience": [
+    {
+      "company": "AssetFindr",
+      "role": "Mobile Engineer",
+      "location": "Jakarta, Indonesia",
+      "startDate": "Sep 2025",
+      "endDate": null,
+      "summary": ""
+    },
+    {
+      "company": "Suitmedia Digital Agency",
+      "role": "Mobile Developer",
+      "location": "Jakarta, Indonesia",
+      "startDate": "Nov 2025",
+      "endDate": "May 2026",
+      "summary": "• Maintained and enhanced production e-commerce applications by resolving defects, implementing new features, and improving existing functionality • Introduced AI-assisted development workflows for debugging, code analysis, and implementation, reducing development time by approximately 40% and accelerating feature delivery."
+    },
+    {
+      "company": "Mitra Informatika",
+      "role": "Mobile Developer",
+      "location": "Surabaya, East Java, Indonesia",
+      "startDate": "Sep 2023",
+      "endDate": "Sep 2025",
+      "summary": "At Mitra Informatika, I worked on building and maintaining mobile applications for clients in various sector. My role involved a mix of native Android and cross-platform development, with a strong focus on performance, stability, and reusable UI.  • Improved overall app stability by addressing Android lifecycle issues and resolving a recurring crash problem affecting end users. • Implemented reusable UI components with Jetpack Compose and Flutter, helping the team speed up future app development. • Contributed to cross-platform efforts by integrating Compose Multiplatform into an existing Android app. • Supported native-to-Flutter integration by connecting a Java/Kotlin SDK with Flutter through platform channels."
+    },
+    {
+      "company": "PT Venturo Pro Indonesia",
+      "role": "Mobile Programmer",
+      "location": "Malang",
+      "startDate": "May 2023",
+      "endDate": "Aug 2023",
+      "summary": "• Contributed in the development of the mobile core (boilerplate) using Flutter, providing a solid foundation for subsequent projects. • Prepared and delivered materials for the company's onboarding class to help new employees quickly adapt to the company's mobile development practices."
+    },
+    {
+      "company": "Suitmedia Digital Agency",
+      "role": "Mobile Developer",
+      "location": "Jakarta, Indonesia",
+      "startDate": "Feb 2022",
+      "endDate": "Jul 2022",
+      "summary": "• Helping the developer team to work on internal projects and client-based projects using Flutter as well as native android (kotlin). • Handle 3 projects consisting of 1 internal project and 2 client-based projects. • Discuss with clients about the technical needs of the project."
+    }
+  ],
+  "education": [
+    {
+      "school": "University of Brawijaya",
+      "degree": "Bachelor's degree",
+      "field": "",
+      "startDate": "Aug 2019",
+      "endDate": "Jan 2023",
+      "summary": ""
+    }
+  ],
+  "skills": [
+    "Android",
+    "Flutter",
+    "SwiftUI",
+    "CI/CD",
+    "Git",
+    "Kotlin",
+    "Swift (Programming Language)",
+    "Dart",
+    "Java",
+    "Jetpack Compose",
+    "Compose Multiplatform",
+    "Android Development",
+    "Mobile Application Development",
+    "Android Studio",
+    "Application Development",
+    "Software Development",
+    "Continuous Delivery",
+    "GitHub",
+    "Gitlab",
+    "Front-end Development",
+    "Analytical Skills",
+    "Programming",
+    "Problem Solving",
+    "Kotlin Coroutines",
+    "XML",
+    "Agentic Workflows",
+    "OpenAI Codex",
+    "Claude Code Subagents"
+  ],
+  "updatedAt": "2026-06-09T13:48:42.036Z",
+  "source": "linkedin-export"
+}

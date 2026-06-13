@@ -9,10 +9,15 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const inter = Inter({ subsets: ["latin"] })
 
+const siteUrl = new URL("https://djabari-dev.my.id")
+const siteTitle = "FarhanFDjabari | Mobile Developer"
+const siteDescription =
+  "Portfolio of Farhan Fadhilah Djabari, a mobile developer specializing in Kotlin, Flutter, Android, and iOS applications."
+
 export const metadata: Metadata = {
-  title: "FarhanFDjabari | Mobile Developer",
-  description:
-    "Portfolio of Farhan Fadhilah Djabari, a skilled Mobile Developer specializing in Kotlin and Flutter. Explore my projects and articles on mobile development.",
+  metadataBase: siteUrl,
+  title: siteTitle,
+  description: siteDescription,
   keywords: ["Mobile Developer", "Flutter", "Kotlin", "Android", "iOS", "Portfolio"],
   icons: {
     icon: [
@@ -32,15 +37,24 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://djabari-dev.my.id",
-    title: "FarhanFDjabari | Mobile Developer",
-    description: "Portfolio of Farhan Fadhilah Djabari, a skilled Mobile Developer specializing in Kotlin and Flutter.",
+    url: siteUrl,
+    title: siteTitle,
+    description: siteDescription,
     siteName: "FarhanFDjabari Portfolio",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "Farhan Fadhilah Djabari mobile developer portfolio",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "FarhanFDjabari | Mobile Developer",
-    description: "Portfolio of Farhan Fadhilah Djabari, a skilled Mobile Developer specializing in Kotlin and Flutter.",
+    title: siteTitle,
+    description: siteDescription,
+    images: ["/opengraph-image"],
   },
   generator: 'v0.dev',
   manifest: "/manifest.json",

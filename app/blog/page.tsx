@@ -84,7 +84,7 @@ export default function BlogPage() {
                     </div>
                   </div>
                   <CardTitle className="text-2xl hover:text-primary transition-colors">
-                    <Link href={`${post.link}`} target="_blank" className="flex items-center gap-2">
+                    <Link href={`${post.link}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
                       {post.title}
                       <ExternalLink className="w-5 h-5" />
                     </Link>
@@ -111,6 +111,7 @@ export default function BlogPage() {
             <Link
               href={LINKS.medium}
               target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
             >
               Visit My Medium Profile

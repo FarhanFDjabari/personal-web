@@ -4,6 +4,7 @@ export const translations = {
   en: {
     // Navigation
     "nav.about": "About",
+    "nav.experience": "Experience",
     "nav.projects": "Projects",
     "nav.blog": "Blog",
     "nav.contact": "Contact",
@@ -48,6 +49,7 @@ export const translations = {
   id: {
     // Navigation
     "nav.about": "Tentang",
+    "nav.experience": "Pengalaman",
     "nav.projects": "Proyek",
     "nav.blog": "Blog",
     "nav.contact": "Kontak",
@@ -56,7 +58,7 @@ export const translations = {
     "hero.title": "Farhan Fadhilah Djabari",
     "hero.subtitle": "Mobile Developer",
     "hero.tagline":
-      "Crafting clean, efficient, and user-centric mobile experiences with Kotlin and Flutter.",
+      "Membangun pengalaman mobile yang bersih, efisien, dan berpusat pada pengguna dengan Kotlin dan Flutter.",
     "hero.skills": "Keahlian Utama",
     "hero.downloadResume": "Unduh Resume",
     "hero.viewProjects": "Lihat Proyek",
@@ -65,9 +67,9 @@ export const translations = {
     "projects.title": "Proyek",
     "projects.titleHighlight": "Unggulan",
     "projects.subtitle":
-      "Showcase project mobile development saya, menampilkan aplikasi yang dibangun dengan Flutter dan Kotlin.",
+      "Kumpulan karya pengembangan mobile saya, menampilkan aplikasi yang dibangun dengan Flutter dan Kotlin.",
     "projects.github": "GitHub",
-    "projects.liveDemo": "Live Demo",
+    "projects.liveDemo": "Demo Langsung",
 
     // Blog Section
     "blog.title": "Pemikiran &",
