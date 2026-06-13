@@ -4,8 +4,9 @@ A modern, responsive personal portfolio website built with Next.js, featuring dy
 
 ## 🚀 Features
 
-- **Modern Design**: Clean, professional UI built with Tailwind CSS and shadcn/ui components
-- **Dynamic Content**: Automatically fetches and displays GitHub repositories and Medium blog posts
+- **Modern Design**: Clean, professional UI built with Tailwind CSS and focused shadcn/ui components
+- **Dynamic Content**: Automatically fetches and displays GitHub repositories, Medium blog posts, and imported profile data
+- **Private LinkedIn Import**: Upload a LinkedIn data export ZIP from a password-protected admin page
 - **Internationalization**: Multi-language support with easy language switching
 - **Theme Support**: Dark/light mode toggle with system preference detection
 - **Responsive**: Fully responsive design that works on all devices
@@ -17,11 +18,10 @@ A modern, responsive personal portfolio website built with Next.js, featuring dy
 - **Framework**: Next.js 15 with App Router
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS
-- **UI Components**: shadcn/ui with Radix UI primitives
+- **UI Components**: Focused shadcn/ui components with Radix primitives
 - **State Management**: React Hooks
 - **API Integration**: GitHub API, Medium API
 - **Icons**: Lucide React
-- **Charts**: Recharts
 - **Animations**: Framer Motion capabilities via Tailwind
 - **Package Manager**: pnpm
 
@@ -30,6 +30,7 @@ A modern, responsive personal portfolio website built with Next.js, featuring dy
 ```plaintext
 ├── app/                    # Next.js app directory
 │   ├── api/               # API routes
+│   │   ├── admin/         # Private import API routes
 │   │   ├── github/        # GitHub API integration
 │   │   └── medium/        # Medium API integration
 │   ├── blog/              # Blog pages
@@ -38,6 +39,7 @@ A modern, responsive personal portfolio website built with Next.js, featuring dy
 │   └── page.tsx           # Home page
 ├── components/            # React components
 │   ├── ui/                # shadcn/ui components
+│   ├── profile-section.tsx # About and experience display
 │   ├── hero-section.tsx   # Hero section component
 │   ├── projects-section.tsx # Projects display
 │   ├── blog-section.tsx   # Blog posts display
@@ -50,6 +52,18 @@ A modern, responsive personal portfolio website built with Next.js, featuring dy
 │   └── utils.ts           # Helper utilities
 └── public/                # Static assets
 ```
+
+## Private LinkedIn Import
+
+The admin import page is available at `/admin/linkedin-import`. Upload the ZIP file from LinkedIn's account data export and the app will parse profile summary, experience, education, and skills.
+
+For Vercel, configure these environment variables:
+
+- `LINKEDIN_IMPORT_PASSWORD` - password required by the private upload page.
+- `BLOB_READ_WRITE_TOKEN` - Vercel Blob read/write token for the connected Blob store.
+- `PROFILE_DATA_URL` - optional raw JSON URL if profile data should be read from a different source.
+
+On Vercel, uploaded data is persisted as `profile/profile.json` in Vercel Blob. Local development falls back to writing `data/profile.json` directly when `BLOB_READ_WRITE_TOKEN` is not set.
 
 ## 🚀 Getting Started
 
@@ -86,7 +100,7 @@ pnpm dev
 - `pnpm dev` - Start development server
 - `pnpm build` - Build for production
 - `pnpm start` - Start production server
-- `pnpm lint` - Run ESLint
+- `pnpm test` - Run unit tests
 
 ## 🎨 Theme Customization
 

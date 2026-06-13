@@ -9,24 +9,23 @@ import { FadeInSection } from "@/components/fade-in-section"
 import { useTranslation } from "@/hooks/use-translation"
 import { useEffect, useState } from "react"
 import { fetchPinnedRepositories } from "@/lib/services/github-api"
+import type { PinnedRepo } from "@/lib/services/github-repositories"
 
-interface Project {
-  title: string
-  description: string
-  technologies: string[]
-  githubUrl: string
-  liveUrl: string | null
-  stars: number
-  forks: number
+interface ProjectsSectionProps {
+  initialProjects?: PinnedRepo[]
 }
 
-export function ProjectsSection() {
+export function ProjectsSection({ initialProjects = [] }: ProjectsSectionProps) {
   const { t } = useTranslation()
-  const [projects, setProjects] = useState<Project[]>([])
-  const [loading, setLoading] = useState(true)
+  const [projects, setProjects] = useState<PinnedRepo[]>(initialProjects)
+  const [loading, setLoading] = useState(initialProjects.length === 0)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
+    if (initialProjects.length > 0) {
+      return
+    }
+
     async function loadProjects() {
       try {
         setLoading(true)
@@ -48,7 +47,7 @@ export function ProjectsSection() {
       }
     }
     loadProjects()
-  }, [])
+  }, [initialProjects.length])
 
   if (loading) {
     return (
@@ -137,7 +136,7 @@ export function ProjectsSection() {
                       size="sm"
                       className="bg-primary hover:bg-primary/90 transition-all duration-300 hover:scale-105"
                     >
-                      <Link href={project.githubUrl} target="_blank">
+                      <Link href={project.githubUrl} target="_blank" rel="noopener noreferrer">
                         <Github className="w-4 h-4 mr-2" />
                         {t("projects.github")}
                       </Link>
@@ -149,7 +148,7 @@ export function ProjectsSection() {
                         size="sm"
                         className="border-border text-muted-foreground hover:bg-muted bg-transparent transition-all duration-300 hover:scale-105"
                       >
-                        <Link href={project.liveUrl} target="_blank">
+                        <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer">
                           <ExternalLink className="w-4 h-4 mr-2" />
                           {t("projects.liveDemo")}
                         </Link>

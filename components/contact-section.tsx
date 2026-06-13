@@ -2,7 +2,7 @@
 
 import type React from "react"
 import { useState } from "react"
-import { File, FileText, Github, Linkedin, Mail } from "lucide-react"
+import { FileText, Github, Linkedin, Mail } from "lucide-react"
 import Link from "next/link"
 import { FadeInSection } from "@/components/fade-in-section"
 import { useTranslation } from "@/hooks/use-translation"
@@ -78,6 +78,7 @@ export function ContactSection() {
                       <Link
                         href={contact.href}
                         target={contact.href.startsWith("http") ? "_blank" : undefined}
+                        rel={contact.href.startsWith("http") ? "noopener noreferrer" : undefined}
                         className="text-foreground hover:text-primary transition-colors duration-300"
                       >
                         {contact.value}
@@ -96,7 +97,8 @@ export function ContactSection() {
                     <Link
                       onClick={handleDownloadResume}
                       href={LINKS.resume}
-                      target="undefined"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="text-foreground hover:text-primary transition-colors duration-300"
                     >
                       {t("hero.downloadResume")}
