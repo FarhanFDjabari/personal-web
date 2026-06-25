@@ -2,8 +2,9 @@ import logger from "@/lib/logger"
 import { GITHUB_CACHE_DURATION } from "@/lib/constants"
 
 const GITHUB_REVALIDATE_SECONDS = GITHUB_CACHE_DURATION / 1000
+const FETCH_TIMEOUT_MS = 15000
 
-export interface PinnedRepo {
+interface PinnedRepo {
   title: string
   description: string
   technologies: string[]
@@ -39,10 +40,30 @@ interface GitHubRepoDetail {
 }
 
 function githubHeaders() {
+  const token = process.env.GITHUB_TOKEN
+  if (token) {
+    logger.info("Using authenticated GitHub API requests")
+  }
   return {
-    ...(process.env.GITHUB_TOKEN ? { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` } : {}),
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
     Accept: "application/vnd.github+json",
     "User-Agent": "Portfolio-Bot/1.0",
+  }
+}
+
+async function fetchWithTimeout(url: string, options: RequestInit, timeoutMs = FETCH_TIMEOUT_MS): Promise<Response> {
+  const controller = new AbortController()
+  const timeoutId = setTimeout(() => controller.abort(), timeoutMs)
+
+  try {
+    const response = await fetch(url, {
+      ...options,
+      signal: controller.signal,
+      next: (options as any).next,
+    })
+    return response
+  } finally {
+    clearTimeout(timeoutId)
   }
 }
 
@@ -58,24 +79,24 @@ function fallbackRepo(pinnedRepo: PinnedRepoResponse): PinnedRepo {
   }
 }
 
+export { type PinnedRepo }
+
 export async function getPinnedRepositories(username: string): Promise<PinnedRepo[]> {
   logger.info("Fetching GitHub repositories", { username })
 
-  const pinnedResponse = await fetch(`https://pinned.berrysauce.dev/get/${username}`, {
-    headers: {
-      "User-Agent": "Portfolio-Bot/1.0",
-    },
-    next: {
-      revalidate: GITHUB_REVALIDATE_SECONDS,
-      tags: [`github-pinned-${username}`],
-    },
-  })
+  let pinnedRepos: PinnedRepoResponse[]
 
-  if (!pinnedResponse.ok) {
-    throw new Error(`Failed to fetch pinned repos: ${pinnedResponse.status}`)
+  try {
+    pinnedRepos = await fetchPinnedFromBerrySauce(username)
+  } catch (error) {
+    logger.warn("pinned.berrysauce.dev failed, falling back to GitHub GraphQL", { username, error })
+    try {
+      pinnedRepos = await fetchPinnedViaGraphQL(username)
+    } catch (graphqlError) {
+      logger.error("GitHub GraphQL fallback also failed", { username, error: graphqlError })
+      throw new Error("All pinned repo sources exhausted")
+    }
   }
-
-  const pinnedRepos: PinnedRepoResponse[] = await pinnedResponse.json()
 
   if (!Array.isArray(pinnedRepos) || pinnedRepos.length === 0) {
     logger.warn("No pinned repositories found", { username })
@@ -85,13 +106,16 @@ export async function getPinnedRepositories(username: string): Promise<PinnedRep
   const detailedRepos = await Promise.all(
     pinnedRepos.map(async (pinnedRepo) => {
       try {
-        const repoResponse = await fetch(`https://api.github.com/repos/${pinnedRepo.author}/${pinnedRepo.name}`, {
-          headers: githubHeaders(),
-          next: {
-            revalidate: GITHUB_REVALIDATE_SECONDS,
-            tags: [`github-repo-${pinnedRepo.author}-${pinnedRepo.name}`],
-          },
-        })
+        const repoResponse = await fetchWithTimeout(
+          `https://api.github.com/repos/${pinnedRepo.author}/${pinnedRepo.name}`,
+          {
+            headers: githubHeaders(),
+            next: {
+              revalidate: GITHUB_REVALIDATE_SECONDS,
+              tags: [`github-repo-${pinnedRepo.author}-${pinnedRepo.name}`],
+            },
+          } as RequestInit,
+        )
 
         if (!repoResponse.ok) {
           logger.warn(`Failed to fetch details for ${pinnedRepo.name}`, {
@@ -134,15 +158,109 @@ export async function getPinnedRepositories(username: string): Promise<PinnedRep
   return detailedRepos
 }
 
+async function fetchPinnedFromBerrySauce(username: string): Promise<PinnedRepoResponse[]> {
+  const response = await fetchWithTimeout(
+    `https://pinned.berrysauce.dev/get/${username}`,
+    {
+      headers: {
+        "User-Agent": "Portfolio-Bot/1.0",
+      },
+      next: {
+        revalidate: GITHUB_REVALIDATE_SECONDS,
+        tags: [`github-pinned-${username}`],
+      },
+    } as RequestInit,
+  )
+
+  if (!response.ok) {
+    throw new Error(`BerrySauce returned ${response.status}`)
+  }
+
+  return response.json()
+}
+
+async function fetchPinnedViaGraphQL(username: string): Promise<PinnedRepoResponse[]> {
+  const token = process.env.GITHUB_TOKEN
+  if (!token) {
+    throw new Error("GITHUB_TOKEN not configured, cannot use GraphQL")
+  }
+
+  const query = `
+    query($username: String!) {
+      user(login: $username) {
+        pinnedItems(first: 6, types: REPOSITORY) {
+          nodes {
+            ... on Repository {
+              name
+              owner { login }
+              description
+              primaryLanguage { name color }
+              stargazerCount
+              forkCount
+              homepageUrl
+              url
+              repositoryTopics(first: 10) {
+                nodes { topic { name } }
+              }
+            }
+          }
+        }
+      }
+    }
+  `
+
+  const response = await fetchWithTimeout(
+    "https://api.github.com/graphql",
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+        "User-Agent": "Portfolio-Bot/1.0",
+      },
+      body: JSON.stringify({ query, variables: { username } }),
+    },
+  )
+
+  if (!response.ok) {
+    throw new Error(`GraphQL returned ${response.status}`)
+  }
+
+  const result = await response.json()
+
+  if (result.errors) {
+    logger.error("GraphQL errors", result.errors)
+    throw new Error(`GraphQL error: ${result.errors[0]?.message}`)
+  }
+
+  const nodes = result.data?.user?.pinnedItems?.nodes
+  if (!Array.isArray(nodes) || nodes.length === 0) {
+    return []
+  }
+
+  return nodes.map((node: any) => ({
+    name: node.name,
+    author: node.owner.login,
+    description: node.description || "",
+    language: node.primaryLanguage?.name || "",
+    languageColor: node.primaryLanguage?.color || "",
+    stars: node.stargazerCount,
+    forks: node.forkCount,
+    website: node.homepageUrl || undefined,
+    url: node.url,
+    topics: node.repositoryTopics?.nodes?.map((t: any) => t.topic.name) || [],
+  }))
+}
+
 async function fetchRepoLanguages(languagesUrl: string, pinnedRepo: PinnedRepoResponse): Promise<Record<string, number>> {
   try {
-    const languagesResponse = await fetch(languagesUrl, {
+    const languagesResponse = await fetchWithTimeout(languagesUrl, {
       headers: githubHeaders(),
       next: {
         revalidate: GITHUB_REVALIDATE_SECONDS,
         tags: [`github-languages-${pinnedRepo.author}-${pinnedRepo.name}`],
       },
-    })
+    } as RequestInit)
 
     if (!languagesResponse.ok) {
       logger.warn(`Failed to fetch languages for ${pinnedRepo.name}`, {

@@ -8,7 +8,7 @@ import Link from "next/link"
 import { FadeInSection } from "@/components/fade-in-section"
 import { useTranslation } from "@/hooks/use-translation"
 import { useEffect, useState } from "react"
-import { fetchPinnedRepositories } from "@/lib/services/github-api"
+import { fetchPinnedRepositories, cachePinnedRepositories } from "@/lib/services/github-api"
 import type { PinnedRepo } from "@/lib/services/github-repositories"
 
 interface ProjectsSectionProps {
@@ -23,6 +23,7 @@ export function ProjectsSection({ initialProjects = [] }: ProjectsSectionProps) 
 
   useEffect(() => {
     if (initialProjects.length > 0) {
+      cachePinnedRepositories(initialProjects)
       return
     }
 
