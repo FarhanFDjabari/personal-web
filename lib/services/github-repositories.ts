@@ -71,13 +71,17 @@ function githubHeaders() {
 }
 
 async function fetchWithTimeout(url: string, options: NextFetchInit, timeoutMs = FETCH_TIMEOUT_MS): Promise<Response> {
-  const controller = new AbortController()
-  const timeoutId = setTimeout(() => controller.abort(), timeoutMs)
+  const timeoutController = new AbortController()
+  const timeoutId = setTimeout(() => timeoutController.abort(), timeoutMs)
+
+  const signal = options.signal
+    ? AbortSignal.any([options.signal, timeoutController.signal])
+    : timeoutController.signal
 
   try {
     const response = await fetch(url, {
       ...options,
-      signal: controller.signal,
+      signal,
     })
     return response
   } finally {
