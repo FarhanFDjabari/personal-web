@@ -1,23 +1,14 @@
-import logger from "../logger"
+import logger from "@/lib/logger"
 import { GITHUB_CACHE_DURATION } from "@/lib/constants"
+import type { PinnedRepo } from "@/lib/services/github-repositories"
 
-interface PinnedRepo {
-  title: string
-  description: string
-  technologies: string[]
-  githubUrl: string
-  liveUrl: string | null
-  stars: number
-  forks: number
-}
+const CLIENT_FETCH_TIMEOUT_MS = 10000
+const CACHE_KEY = "github_pinned_repos"
 
 interface CachedData {
   data: PinnedRepo[]
-  timestamp: number
   expiry: number
 }
-
-const CACHE_KEY = "github_pinned_repos"
 
 function getCachedData(): PinnedRepo[] | null {
   if (typeof window === "undefined") return null
@@ -60,7 +51,6 @@ function setCachedData(data: PinnedRepo[]): void {
   try {
     const cacheData: CachedData = {
       data,
-      timestamp: Date.now(),
       expiry: Date.now() + GITHUB_CACHE_DURATION,
     }
     localStorage.setItem(CACHE_KEY, JSON.stringify(cacheData))
@@ -84,7 +74,7 @@ export async function fetchPinnedRepositories(username: string): Promise<PinnedR
     logger.info("Fetching GitHub repositories via API", { username })
 
     const controller = new AbortController()
-    const timeoutId = setTimeout(() => controller.abort(), 10000)
+    const timeoutId = setTimeout(() => controller.abort(), CLIENT_FETCH_TIMEOUT_MS)
 
     const response = await fetch(
       `/api/github/repositories?username=${username}`,

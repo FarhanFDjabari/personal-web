@@ -39,6 +39,22 @@ interface GitHubRepoDetail {
   homepage: string | null
 }
 
+interface GraphQLPinnedNode {
+  name: string
+  owner: { login: string }
+  description: string | null
+  primaryLanguage: { name: string; color: string } | null
+  stargazerCount: number
+  forkCount: number
+  homepageUrl: string | null
+  url: string
+  repositoryTopics: { nodes: Array<{ topic: { name: string } }> | null }
+}
+
+type NextFetchInit = RequestInit & {
+  next?: { revalidate?: number; tags?: string[] }
+}
+
 let githubHeadersLogged = false
 
 function githubHeaders() {
@@ -54,7 +70,7 @@ function githubHeaders() {
   }
 }
 
-async function fetchWithTimeout(url: string, options: RequestInit, timeoutMs = FETCH_TIMEOUT_MS): Promise<Response> {
+async function fetchWithTimeout(url: string, options: NextFetchInit, timeoutMs = FETCH_TIMEOUT_MS): Promise<Response> {
   const controller = new AbortController()
   const timeoutId = setTimeout(() => controller.abort(), timeoutMs)
 
@@ -116,7 +132,7 @@ export async function getPinnedRepositories(username: string): Promise<PinnedRep
               revalidate: GITHUB_REVALIDATE_SECONDS,
               tags: [`github-repo-${pinnedRepo.author}-${pinnedRepo.name}`],
             },
-          } as RequestInit,
+          },
         )
 
         if (!repoResponse.ok) {
@@ -171,7 +187,7 @@ async function fetchPinnedFromBerrySauce(username: string): Promise<PinnedRepoRe
         revalidate: GITHUB_REVALIDATE_SECONDS,
         tags: [`github-pinned-${username}`],
       },
-    } as RequestInit,
+    },
   )
 
   if (!response.ok) {
@@ -240,7 +256,7 @@ async function fetchPinnedViaGraphQL(username: string): Promise<PinnedRepoRespon
     return []
   }
 
-  return nodes.map((node: any) => ({
+  return nodes.map((node: GraphQLPinnedNode) => ({
     name: node.name,
     author: node.owner.login,
     description: node.description || "",
@@ -250,7 +266,7 @@ async function fetchPinnedViaGraphQL(username: string): Promise<PinnedRepoRespon
     forks: node.forkCount,
     website: node.homepageUrl || undefined,
     url: node.url,
-    topics: node.repositoryTopics?.nodes?.map((t: any) => t.topic.name) || [],
+    topics: node.repositoryTopics?.nodes?.map((t) => t.topic.name) || [],
   }))
 }
 
@@ -262,7 +278,7 @@ async function fetchRepoLanguages(languagesUrl: string, pinnedRepo: PinnedRepoRe
         revalidate: GITHUB_REVALIDATE_SECONDS,
         tags: [`github-languages-${pinnedRepo.author}-${pinnedRepo.name}`],
       },
-    } as RequestInit)
+    })
 
     if (!languagesResponse.ok) {
       logger.warn(`Failed to fetch languages for ${pinnedRepo.name}`, {
