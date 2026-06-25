@@ -39,10 +39,13 @@ interface GitHubRepoDetail {
   homepage: string | null
 }
 
+let githubHeadersLogged = false
+
 function githubHeaders() {
   const token = process.env.GITHUB_TOKEN
-  if (token) {
+  if (token && !githubHeadersLogged) {
     logger.info("Using authenticated GitHub API requests")
+    githubHeadersLogged = true
   }
   return {
     ...(token ? { Authorization: `Bearer ${token}` } : {}),
@@ -59,7 +62,6 @@ async function fetchWithTimeout(url: string, options: RequestInit, timeoutMs = F
     const response = await fetch(url, {
       ...options,
       signal: controller.signal,
-      next: (options as any).next,
     })
     return response
   } finally {

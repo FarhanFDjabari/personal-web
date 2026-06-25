@@ -113,14 +113,8 @@ export async function fetchPinnedRepositories(username: string): Promise<PinnedR
     const staleCache = getExpiredCachedData()
     if (staleCache) {
       logger.info("Using expired localStorage cache as fallback", { username })
+      setCachedData(staleCache)
       return staleCache
-    }
-
-    // Refresh cache expiry so we don't keep hammering the API
-    const existingStale = getExpiredCachedData()
-    if (existingStale) {
-      setCachedData(existingStale)
-      return existingStale
     }
 
     return []
