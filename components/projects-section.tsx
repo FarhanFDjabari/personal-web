@@ -8,7 +8,7 @@ import Link from "next/link"
 import { FadeInSection } from "@/components/fade-in-section"
 import { useTranslation } from "@/hooks/use-translation"
 import { useEffect, useState } from "react"
-import { fetchPinnedRepositories } from "@/lib/services/github-api"
+import { fetchPinnedRepositories, cachePinnedRepositories } from "@/lib/services/github-api"
 import type { PinnedRepo } from "@/lib/services/github-repositories"
 
 interface ProjectsSectionProps {
@@ -23,6 +23,10 @@ export function ProjectsSection({ initialProjects = [] }: ProjectsSectionProps) 
 
   useEffect(() => {
     if (initialProjects.length > 0) {
+      cachePinnedRepositories(initialProjects)
+      setProjects(initialProjects)
+      setLoading(false)
+      setError(null)
       return
     }
 
@@ -77,89 +81,99 @@ export function ProjectsSection({ initialProjects = [] }: ProjectsSectionProps) 
           </div>
         </FadeInSection>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          {projects.map((project, index) => (
-            <FadeInSection key={index} delay={index * 200}>
-              <Card className="bg-card border-border hover:border-primary transition-all duration-500 hover:shadow-xl hover:shadow-primary/10 group hover:scale-105 h-full flex flex-col">
-                <CardHeader className="flex-none">
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1">
-                      <CardTitle className="text-2xl text-foreground mb-2 group-hover:text-primary transition-colors duration-300">
-                        {project.title}
-                      </CardTitle>
-                      <CardDescription className="text-muted-foreground text-base leading-relaxed line-clamp-3 break-words overflow-hidden text-ellipsis">
-                        {project.description}
-                      </CardDescription>
-                    </div>
-                    {(project.stars > 0 || project.forks > 0) && (
-                      <div className="flex items-center gap-3 text-sm text-muted-foreground ml-4 flex-shrink-0">
-                        {project.stars > 0 && (
-                          <div className="flex items-center gap-1">
-                            <Star className="w-4 h-4" />
-                            <span>{project.stars}</span>
-                          </div>
-                        )}
-                        {project.forks > 0 && (
-                          <div className="flex items-center gap-1">
-                            <GitFork className="w-4 h-4" />
-                            <span>{project.forks}</span>
-                          </div>
-                        )}
+        {projects.length > 0 ? (
+          <div className="grid md:grid-cols-2 gap-8">
+            {projects.map((project, index) => (
+              <FadeInSection key={index} delay={index * 200}>
+                <Card className="bg-card border-border hover:border-primary transition-all duration-500 hover:shadow-xl hover:shadow-primary/10 group hover:scale-105 h-full flex flex-col">
+                  <CardHeader className="flex-none">
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1">
+                        <CardTitle className="text-2xl text-foreground mb-2 group-hover:text-primary transition-colors duration-300">
+                          {project.title}
+                        </CardTitle>
+                        <CardDescription className="text-muted-foreground text-base leading-relaxed line-clamp-3 break-words overflow-hidden text-ellipsis">
+                          {project.description}
+                        </CardDescription>
                       </div>
-                    )}
-                  </div>
-                </CardHeader>
-                <CardContent className="space-y-4 flex-1 flex flex-col">
-                  <div className="flex flex-wrap gap-2">
-                    {project.technologies.slice(0,4).map((tech, techIndex) => (
-                      <Badge
-                        key={tech}
-                        variant="secondary"
-                        className="bg-primary/20 text-primary hover:bg-primary/30 transition-all duration-300 hover:scale-105"
-                        style={{ animationDelay: `${techIndex * 100}ms` }}
-                      >
-                        {tech}
-                      </Badge>
-                    ))}
-                    {project.technologies.length > 4 && (
-                      <Badge
-                        variant="secondary"
-                        className="bg-primary/20 text-primary hover:bg-primary/30 transition-all duration-300 hover:scale-105"
-                      >
-                        +{project.technologies.length - 4} more
-                      </Badge>
-                    )}
-                  </div>
-                  <div className="flex gap-3 pt-2 mt-auto">
-                    <Button
-                      asChild
-                      size="sm"
-                      className="bg-primary hover:bg-primary/90 transition-all duration-300 hover:scale-105"
-                    >
-                      <Link href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                        <Github className="w-4 h-4 mr-2" />
-                        {t("projects.github")}
-                      </Link>
-                    </Button>
-                    {project.liveUrl && (
+                      {(project.stars > 0 || project.forks > 0) && (
+                        <div className="flex items-center gap-3 text-sm text-muted-foreground ml-4 flex-shrink-0">
+                          {project.stars > 0 && (
+                            <div className="flex items-center gap-1">
+                              <Star className="w-4 h-4" />
+                              <span>{project.stars}</span>
+                            </div>
+                          )}
+                          {project.forks > 0 && (
+                            <div className="flex items-center gap-1">
+                              <GitFork className="w-4 h-4" />
+                              <span>{project.forks}</span>
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  </CardHeader>
+                  <CardContent className="space-y-4 flex-1 flex flex-col">
+                    <div className="flex flex-wrap gap-2">
+                      {project.technologies.slice(0,4).map((tech, techIndex) => (
+                        <Badge
+                          key={tech}
+                          variant="secondary"
+                          className="bg-primary/20 text-primary hover:bg-primary/30 transition-all duration-300 hover:scale-105"
+                          style={{ animationDelay: `${techIndex * 100}ms` }}
+                        >
+                          {tech}
+                        </Badge>
+                      ))}
+                      {project.technologies.length > 4 && (
+                        <Badge
+                          variant="secondary"
+                          className="bg-primary/20 text-primary hover:bg-primary/30 transition-all duration-300 hover:scale-105"
+                        >
+                          +{project.technologies.length - 4} more
+                        </Badge>
+                      )}
+                    </div>
+                    <div className="flex gap-3 pt-2 mt-auto">
                       <Button
                         asChild
-                        variant="outline"
                         size="sm"
-                        className="border-border text-muted-foreground hover:bg-muted bg-transparent transition-all duration-300 hover:scale-105"
+                        className="bg-primary hover:bg-primary/90 transition-all duration-300 hover:scale-105"
                       >
-                        <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                          <ExternalLink className="w-4 h-4 mr-2" />
-                          {t("projects.liveDemo")}
+                        <Link href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                          <Github className="w-4 h-4 mr-2" />
+                          {t("projects.github")}
                         </Link>
                       </Button>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
-            </FadeInSection>
-          ))}
-        </div>
+                      {project.liveUrl && (
+                        <Button
+                          asChild
+                          variant="outline"
+                          size="sm"
+                          className="border-border text-muted-foreground hover:bg-muted bg-transparent transition-all duration-300 hover:scale-105"
+                        >
+                          <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                            <ExternalLink className="w-4 h-4 mr-2" />
+                            {t("projects.liveDemo")}
+                          </Link>
+                        </Button>
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
+              </FadeInSection>
+            ))}
+          </div>
+        ) : (
+          !loading && (
+            <div className="text-center py-12">
+              <p className="text-muted-foreground text-lg">
+                {error || "No projects to display."}
+              </p>
+            </div>
+          )
+        )}
       </div>
     </section>
   )

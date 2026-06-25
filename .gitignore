@@ -19,6 +19,10 @@ yarn-error.log*
 # env files
 .env*
 
+# lock files (use pnpm)
+package-lock.json
+yarn.lock
+
 # vercel
 .vercel
 
