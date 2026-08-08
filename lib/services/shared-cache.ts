@@ -27,8 +27,7 @@ export async function getFromCache<T>(key: string): Promise<T | null> {
     
     // Check if cache has expired
     if (Date.now() > parsed.expiry) {
-      // Async clean up expired cache file
-      fs.unlink(filePath).catch(() => {})
+      // Return null to trigger fresh fetch, but keep file for fallback
       return null
     }
     
