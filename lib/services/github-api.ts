@@ -20,7 +20,6 @@ function getCachedData(): PinnedRepo[] | null {
     const parsedCache: CachedData = JSON.parse(cached)
 
     if (Date.now() > parsedCache.expiry) {
-      localStorage.removeItem(CACHE_KEY)
       return null
     }
 
